@@ -12,10 +12,10 @@ import frc.robot.Constants;
 public class Chassis extends SubsystemBase {
 
   // initialize right motors
-  private SpeedControllerGroup m_right = new SpeedControllerGroup(new WPI_VictorSPX(Constants.oldRobotShit.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.oldRobotShit.MotorPorts.chassisRightBack));
+  private SpeedControllerGroup m_right = new SpeedControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack));
   
   // initialize left motors
-  private SpeedControllerGroup m_left = new SpeedControllerGroup(new WPI_VictorSPX(Constants.oldRobotShit.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.oldRobotShit.MotorPorts.chassisLeftBack));
+  private SpeedControllerGroup m_left = new SpeedControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
 
   // Gyro local variable \\
   private Gyro m_gyro = new ADXRS450_Gyro();
@@ -30,7 +30,9 @@ public class Chassis extends SubsystemBase {
     m_velocityPID = new PIDController(Constants.StuffThatPID.VELOCITY_KP, Constants.StuffThatPID.VELOCITY_KI, Constants.StuffThatPID.VELOCITY_KD),
     m_distancePID = new PIDController(Constants.StuffThatPID.DISTANCE_KP, Constants.StuffThatPID.DISTANCE_KI, Constants.StuffThatPID.DISTANCE_KD);
   // Constructor \\
-  private Chassis() {}
+  private Chassis() {
+    m_left.setInverted(true);
+  }
 
   // Getter of instance \\
   public static Chassis getInstance() {
@@ -53,7 +55,7 @@ public class Chassis extends SubsystemBase {
   }
 
   public void turn(double speed){
-    this.tankMove(speed, -speed);
+    this.tankMove(-speed, speed);
   }
 
   // Gyro Things \\

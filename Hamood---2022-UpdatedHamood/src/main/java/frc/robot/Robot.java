@@ -6,7 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler; 
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.TurnAndShit; 
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -68,6 +69,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // schedule the autonomous command (example)
+    System.out.println("About to turn");
+    Command turnAndShitComm = new TurnAndShit(90).withTimeout(20);
+    System.out.println("Turned");
+
+    turnAndShitComm.schedule();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }

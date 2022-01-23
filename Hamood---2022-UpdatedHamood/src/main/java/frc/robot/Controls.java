@@ -71,7 +71,6 @@ public class Controls{
     }
     
     Chassis.getInstance().tankMove(leftSpeed,rightSpeed);
-    SmartDashboard.setDefaultBoolean("Joysticks", operatorOrJoystic);
   }
 
   // all the commands that are linked to buttons are initialized here \\

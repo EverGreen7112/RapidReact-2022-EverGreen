@@ -85,9 +85,9 @@ public final class Constants {
         public static final double
 
         // Angle PID Variables \\
-        ANGLE_KP = 0.0467,
+        ANGLE_KP = 0.0267,
         ANGLE_KI = 0,
-        ANGLE_KD = 0,
+        ANGLE_KD = 0.03,
         ANGLE_TOLERANCE = 1,
 
         // Velocity PID Variables \\
