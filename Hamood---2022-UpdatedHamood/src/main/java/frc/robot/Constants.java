@@ -93,7 +93,7 @@ public final class Constants {
         // Velocity PID Variables \\
         VELOCITY_KP = 0.0468,
         VELOCITY_KI = 0,
-        VELOCITY_KD = 0,
+        VELOCITY_KD = 0.01,
 
         // Distance PID Varibles \\
         DISTANCE_KP = 0,

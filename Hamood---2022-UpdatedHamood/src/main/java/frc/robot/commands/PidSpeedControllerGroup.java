@@ -34,7 +34,4 @@ public class PidSpeedControllerGroup extends SpeedControllerGroup{
         super.set(m_pidController.calculate(m_encoder.getDistance(),
          m_pidController.getSetpoint()));
     }
-
-
-    
 }
