@@ -2,7 +2,7 @@ package frc.robot;
 
 public abstract class NoneConstants {
     // Chassis speed \\
-    public static double chassisSpeed = 0.4;
+    public static double chassisSpeed = 0.8;
 
     // Getter \\
     public static double get_chassisSpeed() {

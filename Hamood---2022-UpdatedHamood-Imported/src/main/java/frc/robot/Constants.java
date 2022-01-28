@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 
 public final class Constants {
+    public interface testValues {
+        public static final double 
+            SPEED_JUMPS = 0.01;
+    }
     public interface MotorPorts {
         public static final int
         chassisRightBack = 14, //WPI_VictorSPX
@@ -59,10 +63,10 @@ public final class Constants {
             OPERATOR_JS_RS =12,
 
             // Right joystick ports \\
-            RIGHT_JS_COLLECTOR=0,
+            RIGHT_JS_COLLECTOR = 1,
 
             // Left joystick ports \\
-            LEFT_JS_TURBO = 0;  
+            LEFT_JS_TURBO = 1;  
     }
     //-------------------------------------------------------------------------------------------------------------\\
     //Detail Cameras used
@@ -104,8 +108,8 @@ public final class Constants {
     //-------------------------------------------------------------------------------------------------------------\\
     public interface Sensors {
         public static final int
-        ENCODER_ONE = 0,
-        ENCODER_TWO = 1;
+        ENCODER_COLLECTOR_ONE = 0,
+        ENCODER_COLLECTOR_TWO = 1;
     }
     //-------------------------------------------------------------------------------------------------------------\\
     // Old Robot Shit \\

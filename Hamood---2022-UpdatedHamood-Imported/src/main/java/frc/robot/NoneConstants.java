@@ -1,6 +1,14 @@
 package frc.robot;
 
-public abstract class NoneConstants {
+public class NoneConstants {
+    // TEST PID K VALUES \\
+    public static double 
+        //collector\\
+        collectorKP = 0,
+        collectorKI = 0,
+        collectorKD = 0;
+    
+    //-----------------------------------------------------------------------------------------\\
     // Chassis speed \\
     public static double chassisSpeed = 0.4;
 

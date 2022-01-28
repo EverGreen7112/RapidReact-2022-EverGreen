@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
@@ -11,6 +12,9 @@ public class Controls{
     // creates joystick variables
     private static Joystick m_rightJoystick, m_leftJoystick, m_operatorJoystick; 
     private static JoystickButton m_collectorButton, m_turboButton;
+    private static POVButton m_DpadButtonUp;
+    private static POVButton m_DpadButtonDown;
+    
 
   // initialize \\
   //-------------------------------------------------------------------------------------------------------------\\
@@ -25,7 +29,9 @@ public class Controls{
     m_turboButton = new JoystickButton(m_leftJoystick, Constants.ButtonPorts.LEFT_JS_TURBO);
   
     // Operator Buttons \\
-
+    // NOTE: pove buttons need to get actual angles from 0 to 360 with 0 being up and 180 down going clockwise
+    m_DpadButtonUp = new POVButton(m_operatorJoystick, 0); 
+    m_DpadButtonDown = new POVButton(m_operatorJoystick, 180);
   }
   
   //-----------------------------------------------------------------------------\\
@@ -61,12 +67,12 @@ public class Controls{
     
     // Joystick \\
     if (operatorOrJoystic) {
-      leftSpeed = -(m_leftJoystick.getY() * NoneConstants.get_chassisSpeed());
+      leftSpeed = m_leftJoystick.getY() * NoneConstants.get_chassisSpeed();
       rightSpeed = m_rightJoystick.getY() * NoneConstants.get_chassisSpeed();
     } 
     // Operator \\
     else {
-      leftSpeed = -(m_operatorJoystick.getRawAxis(1) * NoneConstants.get_chassisSpeed());
+      leftSpeed = m_operatorJoystick.getRawAxis(1) * NoneConstants.get_chassisSpeed();
       rightSpeed = m_operatorJoystick.getRawAxis(3) * NoneConstants.get_chassisSpeed();
     }
     
@@ -82,5 +88,10 @@ public class Controls{
     // Turbo Command \\
     Turbo turbo = new Turbo();
     m_turboButton.whenHeld(turbo);
+  }
+
+
+  public static int getDPadY(){
+    return (m_DpadButtonUp.get() ? 1 : 0) + (m_DpadButtonDown.get() ? -1 : 0);
   }
 }

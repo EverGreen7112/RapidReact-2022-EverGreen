@@ -9,7 +9,13 @@ import frc.robot.subsystems.Collector;
 
 public class CollectorComm extends CommandBase {
   @Override
+  public void initialize() {
+    super.initialize();
+    Collector.getInstance().set(0.7);
+  }
+  @Override
   public void execute() {
-      Collector.getInstance().getM_CollectorMotor().set(0.7);
+      
+      Collector.getInstance().move();
   }
 }

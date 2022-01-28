@@ -5,28 +5,59 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.NoneConstants;
+import frc.robot.PidSpeedControllerGroup;
 
 public class Collector extends SubsystemBase {
     // Instance \\
     private static Collector m_collector = new Collector();
+    
 
     // Motor \\
-    private WPI_VictorSPX m_collectorMotor;
+    private WPI_VictorSPX m_collectorMotorRaw;
+    private PidSpeedControllerGroup m_collectorMotor = new PidSpeedControllerGroup(
+    new Encoder(Constants.Sensors.ENCODER_COLLECTOR_ONE, Constants.Sensors.ENCODER_COLLECTOR_TWO),
+    0.0, 
+    NoneConstants.collectorKP, 
+    NoneConstants.collectorKI,
+    NoneConstants.collectorKD, 
+    new SpeedControllerGroup(m_collectorMotorRaw));
 
     // Constructor \\
     public Collector() {
-        m_collectorMotor = new WPI_VictorSPX(Constants.MotorPorts.collector);
+        m_collectorMotorRaw = new WPI_VictorSPX(Constants.MotorPorts.collector);
     } 
 
-    // Get the instance of subsys \\
+    // Get the instance of subsystem \\
     public static Collector getInstance() {
         return m_collector;
     }
 
     // Getters \\
     public WPI_VictorSPX getM_CollectorMotor() {
-        return this.m_collectorMotor;
+        return this.m_collectorMotorRaw;
+    }
+
+    // set speed \\
+    public void set(double speed){
+        this.updatePID();
+        this.m_collectorMotor.set(speed);
+    }
+
+    // move with current speed \\
+    public void move(){
+        this.updatePID();
+        this.m_collectorMotor.move();
+    }
+
+    // update PID \\
+    private void updatePID(){
+        this.m_collectorMotor.setPID(NoneConstants.collectorKP, NoneConstants.collectorKI, NoneConstants.collectorKD);
+        
     }
 }

@@ -8,7 +8,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.TurnAndShit; 
+import frc.robot.commands.CollectorComm;
+import frc.robot.commands.TurnAndShit;
+import frc.robot.shuffleboard.ShuffleTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Collector; 
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,6 +22,7 @@ import frc.robot.commands.TurnAndShit;
  * project.
  */
 public class Robot extends TimedRobot {
+
 
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
@@ -31,10 +37,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // creates all the joystick variables
     Controls.init();
-
-    // create an instance of the reverse controls command
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
+    SmartDashboard.putNumber("test", 69);
     m_robotContainer = new RobotContainer();
   }
 
@@ -70,11 +73,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // schedule the autonomous command (example)
-    System.out.println("About to turn");
+    /*System.out.println("About to turn");
     Command turnAndShitComm = new TurnAndShit(90).withTimeout(20);
     System.out.println("Turned");
 
-    turnAndShitComm.schedule();
+    turnAndShitComm.schedule();*/
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -83,7 +86,9 @@ public class Robot extends TimedRobot {
   //-------------------------------------------------------------------------------------------------------------\\
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    System.out.println(Chassis.getInstance().getGyro().getAngle());
+  }
 
   //-------------------------------------------------------------------------------------------------------------\\
   @Override
@@ -99,6 +104,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putNumber("dPadY", Controls.getDPadY());
+    NoneConstants.collectorKP += Controls.getDPadY() * Constants.testValues.SPEED_JUMPS;
+    SmartDashboard.putNumber("KP DYNAMIC CHANGES TEST", NoneConstants.collectorKP);
     Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
     Controls.commandsPeriodic(); // Calls all of the commands \\
@@ -115,5 +123,12 @@ public class Robot extends TimedRobot {
   //-------------------------------------------------------------------------------------------------------------\\
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    /*CollectorComm collector = new CollectorComm();
+    SmartDashboard.putNumber("dPadY", Controls.getDPadY());
+    NoneConstants.collectorKP += Controls.getDPadY() * Constants.testValues.SPEED_JUMPS;
+    SmartDashboard.putNumber("KP DYNAMIC CHANGES TEST", NoneConstants.collectorKP);
+    collector.schedule();*/
+  }
+
 }

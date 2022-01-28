@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -18,7 +19,7 @@ public class Chassis extends SubsystemBase {
   private SpeedControllerGroup m_left = new SpeedControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
 
   // Gyro local variable \\
-  private Gyro m_gyro = new ADXRS450_Gyro();
+  private Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // Instance \\
   private static final Chassis m_chassis = new Chassis(); // creates the only instance of Chassis
