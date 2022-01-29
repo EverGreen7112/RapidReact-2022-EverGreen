@@ -106,9 +106,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    // SmartDashboard.putNumber("dPadY", Controls.getDPadY());
-    // NoneConstants.collectorKP += Controls.getDPadY() * Constants.testValues.SPEED_JUMPS;
-    // SmartDashboard.putNumber("KP DYNAMIC CHANGES TEST", NoneConstants.collectorKP);
+    SmartDashboard.putNumber("dPadY", Controls.getDPadY());
+    NoneConstants.collectorKP += Controls.getDPadY() * Constants.testValues.SPEED_JUMPS;
+    SmartDashboard.putNumber("KP DYNAMIC CHANGES TEST", NoneConstants.collectorKP);
     Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
     Controls.commandsPeriodic(); // Calls all of the commands \\

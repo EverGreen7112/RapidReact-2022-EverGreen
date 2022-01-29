@@ -11,11 +11,17 @@ public class CollectorComm extends CommandBase {
   @Override
   public void initialize() {
     super.initialize();
-    Collector.getInstance().set(0.7);
+    Collector.set(0.2);
   }
   @Override
   public void execute() {
-      
-      Collector.getInstance().move();
+      Collector.move();
+      Collector.updateShuffleBoard();
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+      Collector.set(0);
+      super.end(interrupted);
   }
 }

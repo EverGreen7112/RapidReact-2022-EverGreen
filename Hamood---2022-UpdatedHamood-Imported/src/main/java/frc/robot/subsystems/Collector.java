@@ -60,4 +60,11 @@ public class Collector extends SubsystemBase {
         m_collectorMotor.setPID(NoneConstants.collectorKP, NoneConstants.collectorKI, NoneConstants.collectorKD);
         
     }
+
+
+
+    // upadates the thingy at the shuffleborad \\
+    public static void updateShuffleBoard(){
+        m_collectorMotor.putUpdatedRate();
+    }
 }
