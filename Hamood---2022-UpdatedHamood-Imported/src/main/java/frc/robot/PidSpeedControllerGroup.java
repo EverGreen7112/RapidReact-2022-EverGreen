@@ -1,21 +1,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.controller.PIDController;
-public class PidSpeedControllerGroup extends SpeedControllerGroup{
+public class PidSpeedControllerGroup extends MotorControllerGroup{
     // Local class variables \\
     private PIDController m_pidController;
     private Encoder m_encoder;
     //-----------------------------------------------------------------------------------------\\
     //constructor\\
-    public PidSpeedControllerGroup(Encoder encoder,double setpoint,double kp, double ki, double kd,SpeedControllerGroup m_rightGroup) {
+    public PidSpeedControllerGroup(Encoder encoder,double setpoint,double kp, double ki, double kd,MotorControllerGroup motorControllerGroup) {
         
-        super(m_rightGroup); // SpeedContrllerGroup constructor \\
+        super(motorControllerGroup); // SpeedContrllerGroup constructor \\
         this.m_encoder = encoder; // sets the local variable of the encoder towhat given in the constructor \\
 
         m_pidController = new PIDController(kp, ki, kd); // Creating the PID controller \\  

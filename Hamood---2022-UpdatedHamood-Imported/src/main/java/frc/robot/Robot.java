@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import java.util.concurrent.ExecutionException;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
@@ -10,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.CollectorComm;
 import frc.robot.commands.TurnAndShit;
-import frc.robot.shuffleboard.ShuffleTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Collector; 
@@ -34,10 +35,11 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit(){
+    super.robotInit();
     // creates all the joystick variables
     Controls.init();
-    SmartDashboard.putNumber("test", 69);
+    // SmartDashboard.putNumber("test", 69);
     m_robotContainer = new RobotContainer();
   }
 
@@ -104,9 +106,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("dPadY", Controls.getDPadY());
-    NoneConstants.collectorKP += Controls.getDPadY() * Constants.testValues.SPEED_JUMPS;
-    SmartDashboard.putNumber("KP DYNAMIC CHANGES TEST", NoneConstants.collectorKP);
+    // SmartDashboard.putNumber("dPadY", Controls.getDPadY());
+    // NoneConstants.collectorKP += Controls.getDPadY() * Constants.testValues.SPEED_JUMPS;
+    // SmartDashboard.putNumber("KP DYNAMIC CHANGES TEST", NoneConstants.collectorKP);
     Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
     Controls.commandsPeriodic(); // Calls all of the commands \\

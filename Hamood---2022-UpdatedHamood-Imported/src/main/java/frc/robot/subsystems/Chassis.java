@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -18,10 +19,10 @@ import frc.robot.PidSpeedControllerGroup;
 public class Chassis extends SubsystemBase {
 
   // initialize right motors
-  private SpeedControllerGroup m_right = new SpeedControllerGroup(new com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack));
+  private MotorControllerGroup m_right = new MotorControllerGroup(new com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack));
   
   // initialize left motors
-  private SpeedControllerGroup m_left = new SpeedControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
+  private MotorControllerGroup m_left = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
 
   // Gyro local variable \\
   private Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS2);

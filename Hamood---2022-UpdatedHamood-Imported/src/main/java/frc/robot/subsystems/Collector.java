@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.NoneConstants;
@@ -19,14 +19,14 @@ public class Collector extends SubsystemBase {
     
 
     // Motor \\
-    private WPI_VictorSPX m_collectorMotorRaw;
-    private PidSpeedControllerGroup m_collectorMotor = new PidSpeedControllerGroup(
+    private static WPI_VictorSPX m_collectorMotorRaw;
+    private static PidSpeedControllerGroup m_collectorMotor = new PidSpeedControllerGroup(
     new Encoder(Constants.Sensors.ENCODER_COLLECTOR_ONE, Constants.Sensors.ENCODER_COLLECTOR_TWO),
     0.0, 
     NoneConstants.collectorKP, 
     NoneConstants.collectorKI,
     NoneConstants.collectorKD, 
-    new SpeedControllerGroup(m_collectorMotorRaw));
+    new MotorControllerGroup(m_collectorMotorRaw));
 
     // Constructor \\
     public Collector() {
@@ -39,25 +39,25 @@ public class Collector extends SubsystemBase {
     }
 
     // Getters \\
-    public WPI_VictorSPX getM_CollectorMotor() {
-        return this.m_collectorMotorRaw;
+    public static WPI_VictorSPX getM_CollectorMotor() {
+        return m_collectorMotorRaw;
     }
 
     // set speed \\
-    public void set(double speed){
-        this.updatePID();
-        this.m_collectorMotor.set(speed);
+    public static void set(double speed){
+        updatePID();
+        m_collectorMotor.set(speed);
     }
 
     // move with current speed \\
-    public void move(){
-        this.updatePID();
-        this.m_collectorMotor.move();
+    public static void move(){
+        updatePID();
+        m_collectorMotor.move();
     }
 
     // update PID \\
-    private void updatePID(){
-        this.m_collectorMotor.setPID(NoneConstants.collectorKP, NoneConstants.collectorKI, NoneConstants.collectorKD);
+    private static void updatePID(){
+        m_collectorMotor.setPID(NoneConstants.collectorKP, NoneConstants.collectorKI, NoneConstants.collectorKD);
         
     }
 }

@@ -9,11 +9,12 @@ import frc.robot.commands.*;
 
 public class Controls{
 
-    // creates joystick variables
+    // creates joystick variables \\
     private static Joystick m_rightJoystick, m_leftJoystick, m_operatorJoystick; 
+
+    // Joystick Button Variables \\
     private static JoystickButton m_collectorButton, m_turboButton;
-    private static POVButton m_DpadButtonUp;
-    private static POVButton m_DpadButtonDown;
+    private static POVButton m_DpadButtonUp, m_DpadButtonDown;
     
 
   // initialize \\
@@ -25,8 +26,7 @@ public class Controls{
     m_operatorJoystick = new Joystick(Constants.JoystickPorts.operatorJS);
 
     // Left & Right Joystick Buttons \\
-    m_collectorButton = new JoystickButton(m_rightJoystick, Constants.ButtonPorts.RIGHT_JS_COLLECTOR);
-    m_turboButton = new JoystickButton(m_leftJoystick, Constants.ButtonPorts.LEFT_JS_TURBO);
+    m_collectorButton = new JoystickButton(m_leftJoystick, Constants.ButtonPorts.LEFT_JS_COLLECTOR);
   
     // Operator Buttons \\
     // NOTE: pove buttons need to get actual angles from 0 to 360 with 0 being up and 180 down going clockwise
@@ -67,13 +67,13 @@ public class Controls{
     
     // Joystick \\
     if (operatorOrJoystic) {
-      leftSpeed = m_leftJoystick.getY() * NoneConstants.get_chassisSpeed();
-      rightSpeed = m_rightJoystick.getY() * NoneConstants.get_chassisSpeed();
+      leftSpeed = m_leftJoystick.getY() * Constants.MathConsts.CHASSIS_MOTOR_SPEED;
+      rightSpeed = m_rightJoystick.getY() * Constants.MathConsts.CHASSIS_MOTOR_SPEED;
     } 
     // Operator \\
     else {
-      leftSpeed = m_operatorJoystick.getRawAxis(1) * NoneConstants.get_chassisSpeed();
-      rightSpeed = m_operatorJoystick.getRawAxis(3) * NoneConstants.get_chassisSpeed();
+      leftSpeed = m_operatorJoystick.getRawAxis(1) * Constants.MathConsts.CHASSIS_MOTOR_SPEED;
+      rightSpeed = m_operatorJoystick.getRawAxis(3) * Constants.MathConsts.CHASSIS_MOTOR_SPEED;
     }
     
     Chassis.getInstance().tankMove(leftSpeed,rightSpeed);
@@ -83,11 +83,8 @@ public class Controls{
   public static void commandsPeriodic() {
     // Collector Command \\
     CollectorComm collectorComm = new CollectorComm();
-    m_collectorButton.whenHeld(collectorComm);
+    m_collectorButton.whileHeld(collectorComm);
 
-    // Turbo Command \\
-    Turbo turbo = new Turbo();
-    m_turboButton.whenHeld(turbo);
   }
 
 

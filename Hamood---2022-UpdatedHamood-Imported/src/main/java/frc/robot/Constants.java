@@ -39,8 +39,8 @@ public final class Constants {
     //Detail Joysticks used
     public interface JoystickPorts {
         public static final int
-            rightChassisJS = 0,
-            leftChassisJS = 1,
+            rightChassisJS = 1,
+            leftChassisJS = 0,
             operatorJS = 2;        
     }
     //-------------------------------------------------------------------------------------------------------------\\
@@ -62,11 +62,8 @@ public final class Constants {
             OPERATOR_JS_LeftS = 11,
             OPERATOR_JS_RS =12,
 
-            // Right joystick ports \\
-            RIGHT_JS_COLLECTOR = 1,
-
             // Left joystick ports \\
-            LEFT_JS_TURBO = 1;  
+            LEFT_JS_COLLECTOR = 1;
     }
     //-------------------------------------------------------------------------------------------------------------\\
     //Detail Cameras used
@@ -80,8 +77,7 @@ public final class Constants {
     public interface MathConsts {
         public static final double 
             COLLECTOR_SPEED = 0.7,
-            REGULAR_SPEED = 0.4,
-            TURBO_SPEED = 0.7;
+            CHASSIS_MOTOR_SPEED = 0.4;
     }
 
     //-------------------------------------------------------------------------------------------------------------\\
