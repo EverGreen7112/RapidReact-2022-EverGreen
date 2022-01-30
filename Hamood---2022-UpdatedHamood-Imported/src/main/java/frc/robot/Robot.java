@@ -6,6 +6,8 @@ package frc.robot;
 import java.util.concurrent.ExecutionException;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -108,11 +110,13 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     SmartDashboard.putNumber("dPadY", Controls.getDPadY());
     NoneConstants.collectorKP += Controls.getDPadY() * Constants.testValues.SPEED_JUMPS;
-    SmartDashboard.putNumber("KP DYNAMIC CHANGES TEST", NoneConstants.collectorKP);
+    SmartDashboard.putNumber("KP", NoneConstants.collectorKP);
     Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
     Controls.commandsPeriodic(); // Calls all of the commands \\
-
+    
+    SmartDashboard.putNumber("Encoder rate", Collector.getM_encoder().getRate());
+    System.out.println(Collector.getM_encoder().getRate());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\

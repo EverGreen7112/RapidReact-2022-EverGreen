@@ -16,12 +16,13 @@ import frc.robot.PidSpeedControllerGroup;
 public class Collector extends SubsystemBase {
     // Instance \\
     private static Collector m_collector = new Collector();
+    private static Encoder m_encoder = new Encoder(Constants.Sensors.ENCODER_COLLECTOR_ONE, Constants.Sensors.ENCODER_COLLECTOR_TWO);
     
 
     // Motor \\
     private static WPI_VictorSPX m_collectorMotorRaw;
     private static PidSpeedControllerGroup m_collectorMotor = new PidSpeedControllerGroup(
-    new Encoder(Constants.Sensors.ENCODER_COLLECTOR_ONE, Constants.Sensors.ENCODER_COLLECTOR_TWO),
+    m_encoder,
     0.0, 
     NoneConstants.collectorKP, 
     NoneConstants.collectorKI,
@@ -66,5 +67,12 @@ public class Collector extends SubsystemBase {
     // upadates the thingy at the shuffleborad \\
     public static void updateShuffleBoard(){
         m_collectorMotor.putUpdatedRate();
+    }
+
+
+
+    // get encoder \\
+    public static Encoder getM_encoder() {
+        return m_encoder;
     }
 }

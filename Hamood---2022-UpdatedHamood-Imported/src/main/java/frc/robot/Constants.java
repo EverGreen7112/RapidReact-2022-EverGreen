@@ -104,8 +104,8 @@ public final class Constants {
     //-------------------------------------------------------------------------------------------------------------\\
     public interface Sensors {
         public static final int
-        ENCODER_COLLECTOR_ONE = 0,
-        ENCODER_COLLECTOR_TWO = 1;
+        ENCODER_COLLECTOR_ONE = 4,
+        ENCODER_COLLECTOR_TWO = 5;
     }
     //-------------------------------------------------------------------------------------------------------------\\
     // Old Robot Shit \\

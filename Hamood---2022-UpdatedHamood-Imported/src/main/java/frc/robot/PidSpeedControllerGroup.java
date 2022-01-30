@@ -35,8 +35,9 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
     //-----------------------------------------------------------------------------------------\\
     // Moving the entire tank \\
     public void move() {
-        super.set(m_pidController.calculate(m_encoder.getDistance(),
+        super.set(m_pidController.calculate(m_encoder.getRate(),
          m_pidController.getSetpoint()));
+
     }
     //-----------------------------------------------------------------------------------------\\
     // sets PID K values \\
@@ -48,6 +49,6 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
     //-----------------------------------------------------------------------------------------\\
     // puts the updated speed rate values  \\
     public void putUpdatedRate(){
-        SmartDashboard.putNumber("speed rate", this.m_encoder.getDistance());
+        SmartDashboard.putNumber("speed rate", this.m_encoder.getRate());
     }
 }
