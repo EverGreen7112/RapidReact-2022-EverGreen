@@ -116,7 +116,6 @@ public class Robot extends TimedRobot {
     Controls.commandsPeriodic(); // Calls all of the commands \\
     
     SmartDashboard.putNumber("Encoder rate", Collector.getM_encoder().getRate());
-    System.out.println(Collector.getM_encoder().getRate());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
