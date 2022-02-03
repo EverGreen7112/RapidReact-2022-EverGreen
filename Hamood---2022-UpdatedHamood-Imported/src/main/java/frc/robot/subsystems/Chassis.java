@@ -25,7 +25,7 @@ public class Chassis extends SubsystemBase {
   private MotorControllerGroup m_left = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
 
   // Gyro local variable \\
-  private Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS2);
+  private Gyro m_gyro = new ADXRS450_Gyro();
 
   // Instance \\
   private static final Chassis m_chassis = new Chassis(); // creates the only instance of Chassis

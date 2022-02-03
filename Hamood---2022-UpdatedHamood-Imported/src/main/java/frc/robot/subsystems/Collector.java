@@ -20,18 +20,18 @@ public class Collector extends SubsystemBase {
     
 
     // Motor \\
-    private static WPI_VictorSPX m_collectorMotorRaw;
+    private static MotorControllerGroup m_collectorMotorRaw; //TODO change this code to move the collector motor instead of chassis
     private static PidSpeedControllerGroup m_collectorMotor = new PidSpeedControllerGroup(
     m_encoder,
     0.0, 
     NoneConstants.collectorKP, 
     NoneConstants.collectorKI,
     NoneConstants.collectorKD, 
-    new MotorControllerGroup(m_collectorMotorRaw));
+    new MotorControllerGroup(m_collectorMotorRaw)); //TODO change this code to move the collector motor instead of chassis
 
     // Constructor \\
     public Collector() {
-        m_collectorMotorRaw = new WPI_VictorSPX(Constants.MotorPorts.collector);
+        m_collectorMotorRaw = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack)); //TODO change this code to move the collector motor instead of chassis
     } 
 
     // Get the instance of subsystem \\
@@ -39,10 +39,11 @@ public class Collector extends SubsystemBase {
         return m_collector;
     }
 
-    // Getters \\
+    // Getters \\ 
+    /*
     public static WPI_VictorSPX getM_CollectorMotor() {
         return m_collectorMotorRaw;
-    }
+    } */
 
     // set speed \\
     public static void set(double speed){
@@ -65,9 +66,9 @@ public class Collector extends SubsystemBase {
 
 
     // upadates the thingy at the shuffleborad \\
-    public static void updateShuffleBoard(){
+    /* public static void updateShuffleBoard(){
         m_collectorMotor.putUpdatedRate();
-    }
+    } */
 
 
 

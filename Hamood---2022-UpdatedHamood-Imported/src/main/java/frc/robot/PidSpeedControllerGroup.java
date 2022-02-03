@@ -3,15 +3,20 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Collector;
+
+import org.opencv.core.TickMeter;
 
 import edu.wpi.first.math.controller.PIDController;
 public class PidSpeedControllerGroup extends MotorControllerGroup{
     // Local class variables \\
     private PIDController m_pidController;
     private Encoder m_encoder;
+    private double m_prevSpeed;
     //-----------------------------------------------------------------------------------------\\
     //constructor\\
-    public PidSpeedControllerGroup(Encoder encoder,double setpoint,double kp, double ki, double kd,MotorControllerGroup motorControllerGroup) {
+    public PidSpeedControllerGroup(Encoder encoder,double setpoint,double kp, double ki, double kd, MotorControllerGroup motorControllerGroup) {
         
         super(motorControllerGroup); // SpeedContrllerGroup constructor \\
         this.m_encoder = encoder; // sets the local variable of the encoder towhat given in the constructor \\
@@ -19,10 +24,13 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
         m_pidController = new PIDController(kp, ki, kd); // Creating the PID controller \\  
         m_pidController.setSetpoint(setpoint); // setting the setpoint \\
         
-        SmartDashboard.putNumber("speed rate", 0);
+        m_prevSpeed = 0;
+        //this.putUpdatedRate();
+
+        this.m_encoder.setDistancePerPulse(EncoderRateToDistance(256, 10.71, 0.1524));
     }
     //-----------------------------------------------------------------------------------------\\
-    public void setSpeed(double setpoint){
+    public void setSpeed(double setpoint) {
         m_pidController.setSetpoint(setpoint); // set the setpoint\\
     }
     //-----------------------------------------------------------------------------------------\\
@@ -35,9 +43,9 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
     //-----------------------------------------------------------------------------------------\\
     // Moving the entire tank \\
     public void move() {
-        super.set(m_pidController.calculate(m_encoder.getRate(),
+         m_prevSpeed = m_encoder.getRate();
+         super.set(m_prevSpeed + m_pidController.calculate(m_encoder.getRate(),
          m_pidController.getSetpoint()));
-
     }
     //-----------------------------------------------------------------------------------------\\
     // sets PID K values \\
@@ -48,7 +56,19 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
 
     //-----------------------------------------------------------------------------------------\\
     // puts the updated speed rate values  \\
-    public void putUpdatedRate(){
-        SmartDashboard.putNumber("speed rate", this.m_encoder.getRate());
+    /* public void putUpdatedRate(){
+        SmartDashboard.putNumber("speed rate", Collector.getM_encoder().getRate());
+    } */
+
+    public double getRateByDistance() {
+        double returnedRate = this.m_encoder.getDistance() - NoneConstants.previousDistance;
+
+        NoneConstants.previousDistance = this.m_encoder.getDistance();
+
+        return returnedRate;
+    }
+
+    public double EncoderRateToDistance(double ticksPerCycle, double transmitionRatio, double CircleDiameter) {
+        return ((CircleDiameter * Math.PI) / (ticksPerCycle * transmitionRatio));
     }
 }
