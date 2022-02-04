@@ -11,7 +11,7 @@ import frc.robot.subsystems.Collector;
 public class CollectorComm extends CommandBase {
   @Override
   public void initialize() {
-    Collector.set(3);
+    Collector.set(2);
   }
   @Override
   public void execute() {
@@ -21,6 +21,7 @@ public class CollectorComm extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+      Collector.reseet();
       Collector.set(0);
       super.end(interrupted);
   }

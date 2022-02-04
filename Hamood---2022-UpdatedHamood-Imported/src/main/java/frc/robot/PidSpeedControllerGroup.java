@@ -69,4 +69,9 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
     public double EncoderRateToDistance(double ticksPerCycle, double transmitionRatio, double CircleDiameter) {
         return ((CircleDiameter * Math.PI) / (ticksPerCycle * transmitionRatio));
     }
+
+    // sts the 0 to the integral \\
+    public void resetI(){
+        this.m_pidController.reset();
+    }
 }

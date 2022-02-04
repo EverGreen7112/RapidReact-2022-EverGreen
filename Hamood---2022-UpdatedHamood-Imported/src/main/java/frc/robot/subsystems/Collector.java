@@ -46,7 +46,7 @@ public class Collector extends SubsystemBase {
     } */
  
     // set speed \\
-    public static void set(double speed){
+    public static void set(double speed) {
         updatePID();
         m_collectorMotor.setSpeed(speed);
     }
@@ -72,5 +72,11 @@ public class Collector extends SubsystemBase {
     // get encoder \\
     public static Encoder getM_encoder() {
         return m_encoder;
+    }
+
+
+    // reste \\
+    public static void reseet(){
+        m_collectorMotor.resetI();
     }
 }
