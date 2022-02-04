@@ -13,7 +13,6 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
     // Local class variables \\
     private PIDController m_pidController;
     private Encoder m_encoder;
-    private double m_prevSpeed;
     //-----------------------------------------------------------------------------------------\\
     //constructor\\
     public PidSpeedControllerGroup(Encoder encoder,double setpoint,double kp, double ki, double kd, MotorControllerGroup motorControllerGroup) {
@@ -24,10 +23,9 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
         m_pidController = new PIDController(kp, ki, kd); // Creating the PID controller \\  
         m_pidController.setSetpoint(setpoint); // setting the setpoint \\
         
-        m_prevSpeed = 0;
         //this.putUpdatedRate();
 
-        this.m_encoder.setDistancePerPulse(EncoderRateToDistance(256, 10.71, 0.1524));
+        this.m_encoder.setDistancePerPulse(EncoderRateToDistance(20, 10.71, 0.1524));
     }
     //-----------------------------------------------------------------------------------------\\
     public void setSpeed(double setpoint) {
@@ -43,9 +41,9 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
     //-----------------------------------------------------------------------------------------\\
     // Moving the entire tank \\
     public void move() {
-         m_prevSpeed = m_encoder.getRate();
-         super.set(m_prevSpeed + m_pidController.calculate(m_encoder.getRate(),
+         super.set(m_pidController.calculate(m_encoder.getRate(),
          m_pidController.getSetpoint()));
+         SmartDashboard.putNumber("pid value position", m_pidController.getPositionError());
     }
     //-----------------------------------------------------------------------------------------\\
     // sets PID K values \\

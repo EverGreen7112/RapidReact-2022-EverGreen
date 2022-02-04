@@ -44,11 +44,11 @@ public class Collector extends SubsystemBase {
     public static WPI_VictorSPX getM_CollectorMotor() {
         return m_collectorMotorRaw;
     } */
-
+ 
     // set speed \\
     public static void set(double speed){
         updatePID();
-        m_collectorMotor.set(speed);
+        m_collectorMotor.setSpeed(speed);
     }
 
     // move with current speed \\
@@ -60,10 +60,7 @@ public class Collector extends SubsystemBase {
     // update PID \\
     private static void updatePID(){
         m_collectorMotor.setPID(NoneConstants.collectorKP, NoneConstants.collectorKI, NoneConstants.collectorKD);
-        
     }
-
-
 
     // upadates the thingy at the shuffleborad \\
     /* public static void updateShuffleBoard(){
