@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -25,7 +26,7 @@ public class Chassis extends SubsystemBase {
   private MotorControllerGroup m_left = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
 
   // Gyro local variable \\
-  private Gyro m_gyro = new ADXRS450_Gyro();
+  ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
   // Instance \\
   private static final Chassis m_chassis = new Chassis(); // creates the only instance of Chassis
@@ -66,8 +67,12 @@ public class Chassis extends SubsystemBase {
   }
 
   // Gyro Things \\
-  public Gyro getGyro() { // Getter \\
+  public ADXRS450_Gyro getGyro() { // Getter \\
     return m_gyro;
+  }
+
+  public double getGyroAngleInDegrees() {
+    return Math.toDegrees(m_gyro.getAngle());
   }
 
   public PIDController getAnglePID() { // Get robot angle \\

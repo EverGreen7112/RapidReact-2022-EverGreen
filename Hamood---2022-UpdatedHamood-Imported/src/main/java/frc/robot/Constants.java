@@ -77,7 +77,7 @@ public final class Constants {
     public interface MathConsts {
         public static final double 
             COLLECTOR_SPEED = 0.7,
-            CHASSIS_MOTOR_SPEED = 0.4;
+            CHASSIS_MOTOR_SPEED = 0.5;
     }
 
     //-------------------------------------------------------------------------------------------------------------\\
@@ -85,9 +85,9 @@ public final class Constants {
         public static final double
 
         // Angle PID Variables \\
-        ANGLE_KP = 0.0267,
-        ANGLE_KI = 0,
-        ANGLE_KD = 0.03,
+        ANGLE_KP = 0.008,
+        ANGLE_KI = 0.001,
+        ANGLE_KD = 0,
         ANGLE_TOLERANCE = 1,
 
         // Velocity PID Variables \\

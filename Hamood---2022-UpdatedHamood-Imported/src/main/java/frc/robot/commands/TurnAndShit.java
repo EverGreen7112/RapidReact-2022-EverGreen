@@ -11,8 +11,9 @@ public class TurnAndShit extends PIDCommand implements DoubleArgCommand {
 
     @Override
     public void initialize() {
+        Chassis.getInstance().getAnglePID().reset();
         super.initialize();
-        Chassis.getInstance().getGyro().reset();
+        //Chassis.getInstance().getGyro().reset();
         values = "";
     }
 
@@ -41,7 +42,7 @@ public class TurnAndShit extends PIDCommand implements DoubleArgCommand {
 
     @Override
     public boolean isFinished() {
-        return super.isFinished() || ((Chassis.getInstance().getGyro().getAngle() > this.m_setpoint.getAsDouble() - Constants.StuffThatPID.ANGLE_TOLERANCE) && (Chassis.getInstance().getGyro().getAngle()) < this.m_setpoint.getAsDouble() + Constants.StuffThatPID.ANGLE_TOLERANCE);
+        return false;
     }
 
     @Override

@@ -6,6 +6,8 @@ package frc.robot;
 import java.util.concurrent.ExecutionException;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
@@ -37,11 +39,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit(){
-    super.robotInit();
+    m_autonomousCommand = new TurnAndShit(90).withTimeout(7);
+    super.robotInit(); 
     // creates all the joystick variables
     Controls.init();
     // SmartDashboard.putNumber("test", 69);
     m_robotContainer = new RobotContainer();
+    Chassis.getInstance().getGyro().reset();
   }
 
 
@@ -81,22 +85,25 @@ public class Robot extends TimedRobot {
     System.out.println("Turned");
 
     turnAndShitComm.schedule();*/
+    Chassis.getInstance().getGyro().reset();
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
-    System.out.println(Chassis.getInstance().getGyro().getAngle());
+  public void autonomousPeriodic() {    
+    SmartDashboard.putNumber("Gyro Value", Chassis.getInstance().getGyro().getAngle());
+    SmartDashboard.putNumber("eror", Chassis.getInstance().getAnglePID().getPositionError());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
   @Override
   public void teleopInit() {
-    new WPI_VictorSPX(0).set(0.5);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
