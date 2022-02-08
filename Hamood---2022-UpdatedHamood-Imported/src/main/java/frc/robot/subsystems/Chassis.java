@@ -22,11 +22,11 @@ public class Chassis extends SubsystemBase {
   // initialize right motors
   private MotorControllerGroup m_right = new MotorControllerGroup(new com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack));
   
-  // initialize left motors
+  // initialize left motors 
   private MotorControllerGroup m_left = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
 
   // Gyro local variable \\
-  ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+  AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
   // Instance \\
   private static final Chassis m_chassis = new Chassis(); // creates the only instance of Chassis
@@ -67,7 +67,7 @@ public class Chassis extends SubsystemBase {
   }
 
   // Gyro Things \\
-  public ADXRS450_Gyro getGyro() { // Getter \\
+  public AHRS getGyro() { // Getter \\
     return m_gyro;
   }
 

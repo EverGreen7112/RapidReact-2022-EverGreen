@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit(){
-    m_autonomousCommand = new TurnAndShit(90).withTimeout(7);
+    m_autonomousCommand = new TurnAndShit(-180).withTimeout(7);
     super.robotInit(); 
     // creates all the joystick variables
     Controls.init();

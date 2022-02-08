@@ -31,7 +31,7 @@ public class Collector extends SubsystemBase {
 
     // Constructor \\
     public Collector() {
-        m_collectorMotorRaw = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack)); //TODO change this code to move the collector motor instead of chassis
+        //m_collectorMotorRaw = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack)); //TODO change this code to move the collector motor instead of chassis
     } 
 
     // Get the instance of subsystem \\
