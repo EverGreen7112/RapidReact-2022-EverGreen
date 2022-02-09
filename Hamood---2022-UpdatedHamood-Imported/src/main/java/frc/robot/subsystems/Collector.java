@@ -16,7 +16,7 @@ import frc.robot.PidSpeedControllerGroup;
 public class Collector extends SubsystemBase {
     // Instance \\
     private static Collector m_collector = new Collector();
-    private static Encoder m_encoder = new Encoder(Constants.Sensors.ENCODER_COLLECTOR_ONE, Constants.Sensors.ENCODER_COLLECTOR_TWO);
+    private static Encoder m_encoder = new Encoder(Constants.Sensors.ENCODER_ONE, Constants.Sensors.ENCODER_TWO);
     
 
     // Motor \\

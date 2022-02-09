@@ -4,6 +4,7 @@
 
 package frc.robot;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -13,8 +14,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.commands.CollectorComm;
 import frc.robot.commands.TurnAndShit;
+import frc.robot.commands.moveSpeedPID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Collector; 
@@ -39,7 +42,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit(){
-    m_autonomousCommand = new TurnAndShit(-180).withTimeout(7);
+    m_autonomousCommand = new TurnAndShit(90).withTimeout(7);
+
     super.robotInit(); 
     // creates all the joystick variables
     Controls.init();
@@ -98,7 +102,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {    
     SmartDashboard.putNumber("Gyro Value", Chassis.getInstance().getGyro().getAngle());
-    SmartDashboard.putNumber("eror", Chassis.getInstance().getAnglePID().getPositionError());
+    SmartDashboard.putNumber("error", Chassis.getInstance().getAnglePID().getPositionError());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -107,6 +111,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    Command m_moveSpeedPID = new moveSpeedPID(-0.2, -0.2).withTimeout(3); // speed pid command initialization
+    m_moveSpeedPID.schedule();
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -118,8 +125,8 @@ public class Robot extends TimedRobot {
 
     Controls.commandsPeriodic(); // Calls all of the commands \\
     
-    SmartDashboard.putNumber("Encoder rate", Collector.getM_encoder().getRate());
-    SmartDashboard.putNumber("Gyro", Chassis.getInstance().getGyro().getAngle());
+    SmartDashboard.putNumber("Encoder L", moveSpeedPID.getM_encoderL().getRate());
+    SmartDashboard.putNumber("Encoder R", moveSpeedPID.getM_encoderR().getRate());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
