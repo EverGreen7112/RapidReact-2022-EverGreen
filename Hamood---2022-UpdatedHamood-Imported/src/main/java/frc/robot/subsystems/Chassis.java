@@ -26,7 +26,7 @@ public class Chassis extends SubsystemBase {
   private MotorControllerGroup m_left = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
 
   // Gyro local variable \\
-  AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
   // Instance \\
   private static final Chassis m_chassis = new Chassis(); // creates the only instance of Chassis
@@ -40,6 +40,7 @@ public class Chassis extends SubsystemBase {
   // Constructor \\
   private Chassis() {
     m_left.setInverted(true);
+    m_gyro.reset();
   }
 
   // Getter of instance \\

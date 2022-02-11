@@ -108,12 +108,15 @@ public class Robot extends TimedRobot {
   //-------------------------------------------------------------------------------------------------------------\\
   @Override
   public void teleopInit() {
+    
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
 
-    Command m_moveSpeedPID = new moveSpeedPID(-0.2, -0.2).withTimeout(3); // speed pid command initialization
-    m_moveSpeedPID.schedule();
+
+    // Command m_moveSpeedPID = new moveSpeedPID(0, 0).withTimeout(0.1); // speed pid command initialization
+    // m_moveSpeedPID.schedule();
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -121,12 +124,15 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    Controls.movePeriodic(); // uses tank-drive with joysticks \\
+    //Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
     Controls.commandsPeriodic(); // Calls all of the commands \\
     
-    SmartDashboard.putNumber("Encoder L", moveSpeedPID.getM_encoderL().getRate());
-    SmartDashboard.putNumber("Encoder R", moveSpeedPID.getM_encoderR().getRate());
+    SmartDashboard.putNumber("Encoder L r", moveSpeedPID.getM_encoderL().getRate());
+    SmartDashboard.putNumber("Encoder R r", moveSpeedPID.getM_encoderR().getRate());
+    SmartDashboard.putNumber("Encoder L d", moveSpeedPID.getM_encoderL().getDistance());
+    SmartDashboard.putNumber("Encoder R d", moveSpeedPID.getM_encoderR().getDistance());
+    SmartDashboard.putNumber("js d", Controls.getRightJoystickAsAngle());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\

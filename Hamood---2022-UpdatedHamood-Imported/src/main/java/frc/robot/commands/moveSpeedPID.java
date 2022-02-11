@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.NoneConstants;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.PidSpeedControllerGroup;
 import frc.robot.subsystems.Chassis;
@@ -38,10 +39,12 @@ public class moveSpeedPID extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_encoderL.setReverseDirection(true);
+    m_encoderR.setDistancePerPulse(PidSpeedControllerGroup.EncoderRateToDistance(20, 10.71, 0.1524));
+    m_encoderL.setDistancePerPulse(PidSpeedControllerGroup.EncoderRateToDistance(20, 10.71, 0.1524));
+    m_encoderR.setReverseDirection(true);
 
     m_MotorControllerL = new PidSpeedControllerGroup(
-    m_encoderL,
+    m_encoderR,
     0.0, 
     NoneConstants.collectorKP, 
     NoneConstants.collectorKI,
@@ -49,7 +52,7 @@ public class moveSpeedPID extends CommandBase {
     Chassis.getInstance().getM_left());
 
     m_MotorControllerR = new PidSpeedControllerGroup(
-    m_encoderR,
+    m_encoderL,
     0.0, 
     NoneConstants.collectorKP, 
     NoneConstants.collectorKI,

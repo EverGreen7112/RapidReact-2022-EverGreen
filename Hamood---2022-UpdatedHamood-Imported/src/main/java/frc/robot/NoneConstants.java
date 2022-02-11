@@ -4,9 +4,9 @@ public class NoneConstants {
     // TEST PID K VALUES \\
     public static double 
         //collector\\
-        collectorKP = 0.3,
-        collectorKI = 0.006,
-        collectorKD = 0.0087,
+        collectorKP = 0.73,
+        collectorKI = 0.018,
+        collectorKD = 0.0004,
     
     //------------------------------------------------------------------------------------------------------\\
 

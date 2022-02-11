@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
+import frc.robot.commands.Swurv;
 
 public final class Constants {
     public interface testValues {
@@ -100,7 +101,13 @@ public final class Constants {
         DISTANCE_KP = 0,
         DISTANCE_KI = 0,
         DISTANCE_KD = 0,
-        DISTANCE_TOLERANCE = 1;
+        DISTANCE_TOLERANCE = 1,
+
+        // Swurv PID Variables \\
+        SWURV_KP = 0.019,
+        SWURV_KI = 0.005,
+        SWURV_KD = 0.008,
+        SWURV_TOLERANCE = 0.25;
     }
     //-------------------------------------------------------------------------------------------------------------\\
     public interface Sensors {

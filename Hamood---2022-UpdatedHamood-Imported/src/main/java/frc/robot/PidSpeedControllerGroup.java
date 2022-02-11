@@ -66,7 +66,7 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
         return returnedRate;
     }
 
-    public double EncoderRateToDistance(double ticksPerCycle, double transmitionRatio, double CircleDiameter) {
+    public static double EncoderRateToDistance(double ticksPerCycle, double transmitionRatio, double CircleDiameter) {
         return ((CircleDiameter * Math.PI) / (ticksPerCycle * transmitionRatio));
     }
 

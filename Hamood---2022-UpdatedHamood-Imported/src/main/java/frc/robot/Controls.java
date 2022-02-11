@@ -83,12 +83,21 @@ public class Controls{
   public static void commandsPeriodic() {
     // Collector Command \\
     CollectorComm collectorComm = new CollectorComm();
-    m_collectorButton.whileHeld(collectorComm);
+    // m_collectorButton.whileHeld(collectorComm);
 
+    // Swurv command
+    Swurv swurvComm = new Swurv();
+    m_collectorButton.whenHeld(swurvComm);
+    SmartDashboard.putNumber("Gyro Angle", Chassis.getInstance().getGyro().getAngle());
+    SmartDashboard.putNumber("Joystick angle", Controls.getRightJoystickAsAngle());
   }
 
 
   public static int getDPadY(){
     return (m_DpadButtonUp.get() ? 1 : 0) + (m_DpadButtonDown.get() ? -1 : 0);
+  }
+
+  public static double getRightJoystickAsAngle(){
+    return (Math.atan2(-m_rightJoystick.getX(), m_rightJoystick.getY()) * 180 / Math.PI) + 180;
   }
 }
