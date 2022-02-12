@@ -4,10 +4,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.I2C.Port;
-import frc.robot.commands.Swurv;
 
 public final class Constants {
     public interface testValues {
@@ -79,7 +78,8 @@ public final class Constants {
     public interface MathConsts {
         public static final double 
             COLLECTOR_SPEED = 0.7,
-            CHASSIS_MOTOR_SPEED = 0.5;
+            CHASSIS_MOTOR_SPEED = 0.8,
+            JOYSTICK_MINIMUM = 0.5;
     }
 
     //-------------------------------------------------------------------------------------------------------------\\
@@ -104,9 +104,9 @@ public final class Constants {
         DISTANCE_TOLERANCE = 1,
 
         // Swurv PID Variables \\
-        SWURV_KP = 0.019,
-        SWURV_KI = 0.005,
-        SWURV_KD = 0.008,
+        SWURV_KP = 0.001,
+        SWURV_KI = 0.0,
+        SWURV_KD = 0.0,
         SWURV_TOLERANCE = 0.25;
     }
     //-------------------------------------------------------------------------------------------------------------\\

@@ -6,17 +6,17 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 public class S_PID extends PIDSubsystem {
   /** Creates a new S_PID. */
-  private SpeedControllerGroup m_motor;
+  private MotorControllerGroup m_motor;
   //private Encoder encoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
   private Encoder m_encoder;
-  public S_PID(Encoder encoder,SpeedControllerGroup motor, double setpoint) {
+  public S_PID(Encoder encoder,MotorControllerGroup motor, double setpoint) {
     
     super(
         // The PIDController used by the subsystem 

@@ -47,7 +47,6 @@ public class Robot extends TimedRobot {
     super.robotInit(); 
     // creates all the joystick variables
     Controls.init();
-    // SmartDashboard.putNumber("test", 69);
     m_robotContainer = new RobotContainer();
     Chassis.getInstance().getGyro().reset();
   }
@@ -83,13 +82,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    // schedule the autonomous command (example)
-    /*System.out.println("About to turn");
-    Command turnAndShitComm = new TurnAndShit(90).withTimeout(20);
-    System.out.println("Turned");
 
-    turnAndShitComm.schedule();*/
-    Chassis.getInstance().getGyro().reset();
+    // Command m_moveSpeedPID = new moveSpeedPID(0, 0).withTimeout(0.1); // speed pid command initialization
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -101,8 +95,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {    
-    SmartDashboard.putNumber("Gyro Value", Chassis.getInstance().getGyro().getAngle());
-    SmartDashboard.putNumber("error", Chassis.getInstance().getAnglePID().getPositionError());
+    //SmartDashboard.putNumber("Gyro Value", Chassis.getInstance().getGyro().getAngle());
+    //SmartDashboard.putNumber("error", Chassis.getInstance().getAnglePID().getPositionError());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -115,8 +109,6 @@ public class Robot extends TimedRobot {
     }
 
 
-    // Command m_moveSpeedPID = new moveSpeedPID(0, 0).withTimeout(0.1); // speed pid command initialization
-    // m_moveSpeedPID.schedule();
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -124,15 +116,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //Controls.movePeriodic(); // uses tank-drive with joysticks \\
+    Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
-    Controls.commandsPeriodic(); // Calls all of the commands \\
+    // Controls.commandsPeriodic(); // Calls all of the commands \\
     
-    SmartDashboard.putNumber("Encoder L r", moveSpeedPID.getM_encoderL().getRate());
-    SmartDashboard.putNumber("Encoder R r", moveSpeedPID.getM_encoderR().getRate());
-    SmartDashboard.putNumber("Encoder L d", moveSpeedPID.getM_encoderL().getDistance());
-    SmartDashboard.putNumber("Encoder R d", moveSpeedPID.getM_encoderR().getDistance());
-    SmartDashboard.putNumber("js d", Controls.getRightJoystickAsAngle());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -142,15 +129,10 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
   }
 
-  //-------------------------------------------------------------------------------------------------------------\\
-  /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    /*CollectorComm collector = new CollectorComm();
-    SmartDashboard.putNumber("dPadY", Controls.getDPadY());
-    NoneConstants.collectorKP += Controls.getDPadY() * Constants.testValues.SPEED_JUMPS;
-    SmartDashboard.putNumber("KP DYNAMIC CHANGES TEST", NoneConstants.collectorKP);
-    collector.schedule();*/
+    Controls.commandsPeriodic(); // Calls all of the commands \\
+
   }
 
 }

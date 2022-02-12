@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Controls;
@@ -28,14 +29,44 @@ public class Swurv extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!(Controls.getM_rightJoystick().getY() == 0 && Controls.getM_rightJoystick().getX() == 0)){
+    // ShuffleBoard \\
+    SmartDashboard.putNumber("Right Joystick Y", Controls.getM_rightJoystick().getY());
+    SmartDashboard.putNumber("Right Joystick X", Controls.getM_rightJoystick().getX());
 
-      double speed = ((Controls.getM_rightJoystick().getX() + Controls.getM_rightJoystick().getY()) / 2)
-       * Constants.MathConsts.CHASSIS_MOTOR_SPEED * 0.5;
-      double error = m_pid.calculate(Chassis.getInstance().getInstance().getGyroAngleInDegrees(),
-      Controls.getRightJoystickAsAngle());
+    // Should I turn \\
+    if (!(Math.abs(Controls.getM_rightJoystick().getY()) <= Constants.MathConsts.JOYSTICK_MINIMUM &&
+     Math.abs(Controls.getM_rightJoystick().getX()) <= Constants.MathConsts.JOYSTICK_MINIMUM)){
+
+      //  Dashboard \\
+      SmartDashboard.putNumber("Gyro", (360 + Chassis.getInstance().getGyroAngleInDegrees()) % 360);
+      SmartDashboard.putNumber("Joystick", Controls.getRightJoystickAsAngle());
+      SmartDashboard.putNumber("Angle error", Controls.getRightJoystickAsAngle() - ((360 + Chassis.getInstance().getGyroAngleInDegrees()) % 360));
+
+      // speed calc \\
+      double speed = (
+          (
+            Controls.getM_rightJoystick().getX() +
+            Controls.getM_rightJoystick().getY()
+          ) / 2
+        ) * 
+        Constants.MathConsts.CHASSIS_MOTOR_SPEED * 0;
       
-      Chassis.getInstance().tankMove(speed - error, speed + error);
+
+      // error calc \\
+      double error = m_pid.calculate(
+        (
+          360 + Chassis.getInstance().getGyroAngleInDegrees()
+        ) % 360,
+        Controls.getRightJoystickAsAngle());
+      
+      // moving the robot \\
+      Chassis.getInstance().tankMove(speed + error, speed - error);
+
+    }
+
+    // If not to turn \\
+    else{
+      Chassis.getInstance().tankMove(0, 0);
     }
   }
 
