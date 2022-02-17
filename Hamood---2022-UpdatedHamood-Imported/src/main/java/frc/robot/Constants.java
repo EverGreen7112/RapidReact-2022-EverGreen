@@ -78,8 +78,12 @@ public final class Constants {
     public interface MathConsts {
         public static final double 
             COLLECTOR_SPEED = 0.7,
+<<<<<<< Updated upstream
             CHASSIS_MOTOR_SPEED = 0.8,
             JOYSTICK_MINIMUM = 0.5;
+=======
+            CHASSIS_MOTOR_SPEED = 0.2;
+>>>>>>> Stashed changes
     }
 
     //-------------------------------------------------------------------------------------------------------------\\

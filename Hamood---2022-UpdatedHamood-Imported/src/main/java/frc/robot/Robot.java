@@ -118,7 +118,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
+<<<<<<< Updated upstream
     // Controls.commandsPeriodic(); // Calls all of the commands \\
+=======
+    //Controls.commandsPeriodic(); // Calls all of the commands \\
+>>>>>>> Stashed changes
     
   }
 
