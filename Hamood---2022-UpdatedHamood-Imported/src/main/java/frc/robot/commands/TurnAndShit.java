@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants;
 import frc.robot.subsystems.Chassis;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,7 +10,7 @@ public class TurnAndShit extends PIDCommand implements DoubleArgCommand {
 
     @Override
     public void initialize() {
-        Chassis.getAnglePID().reset();
+        Chassis.ResetAnglePID();
         super.initialize();
         //Chassis.getInstance().getGyro().reset();
         values = "";

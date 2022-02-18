@@ -1,12 +1,12 @@
-package frc.robot;
+package frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
-import frc.robot.commands.*;
 import frc.robot.commands.Swurv;
+import frc.robot.commands.CollectorCommands.CollectorComm;
 
 
 public class Controls{
@@ -15,7 +15,7 @@ public class Controls{
     private static Joystick m_rightJoystick, m_leftJoystick, m_operatorJoystick; 
 
     // Joystick Button Variables \\
-    private static JoystickButton m_collectorButton, m_turboButton;
+    private static JoystickButton m_collectorButton;
     private static POVButton m_DpadButtonUp, m_DpadButtonDown;
     
 
@@ -85,7 +85,7 @@ public class Controls{
   public static void commandsPeriodic() {
     // Collector Command \\
     CollectorComm collectorComm = new CollectorComm();
-    // m_collectorButton.whileHeld(collectorComm);
+    m_collectorButton.whileHeld(collectorComm);
 
     // Swurv command
     Swurv swurvComm = new Swurv();

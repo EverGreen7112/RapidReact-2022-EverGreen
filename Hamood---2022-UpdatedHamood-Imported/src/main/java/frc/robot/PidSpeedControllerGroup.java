@@ -3,11 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Collector;
-
-import org.opencv.core.TickMeter;
-
+import frc.robot.RobotContainer.NoneConstants;
 import edu.wpi.first.math.controller.PIDController;
 public class PidSpeedControllerGroup extends MotorControllerGroup{
     // Local class variables \\

@@ -2,10 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.I2C.Port;
 
 public final class Constants {
@@ -21,7 +20,8 @@ public final class Constants {
         chassisLeft1 = 0, //WPI_VictorSPX
         chassisLeft2 = 1, //WPI_VictorSPX
         chassisLeft3 = 3,
-        collector = 12; //WPI_VictorSPX
+        collector = 0, //WPI_VictorSPX TODO change to the right port
+        collectorLift = 0; //WPI_VictorSPX TODO change to the right port
     }
     //-------------------------------------------------------------------------------------------------------------\\
     //Detail Piston Components

@@ -3,24 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import frc.robot.commands.CollectorComm;
+import frc.robot.RobotContainer.Controls;
 import frc.robot.commands.TurnAndShit;
-import frc.robot.commands.moveSpeedPID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Collector; 
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -32,7 +21,6 @@ public class Robot extends TimedRobot {
 
 
   private Command m_autonomousCommand;
-  private RobotContainer m_robotContainer;
 
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -47,7 +35,6 @@ public class Robot extends TimedRobot {
     super.robotInit(); 
     // creates all the joystick variables
     Controls.init();
-    m_robotContainer = new RobotContainer();
     Chassis.getInstance().getGyro().reset();
   }
 
