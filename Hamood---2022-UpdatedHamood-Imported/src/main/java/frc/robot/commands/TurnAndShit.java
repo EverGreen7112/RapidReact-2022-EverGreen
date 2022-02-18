@@ -11,7 +11,7 @@ public class TurnAndShit extends PIDCommand implements DoubleArgCommand {
 
     @Override
     public void initialize() {
-        Chassis.getInstance().getAnglePID().reset();
+        Chassis.getAnglePID().reset();
         super.initialize();
         //Chassis.getInstance().getGyro().reset();
         values = "";

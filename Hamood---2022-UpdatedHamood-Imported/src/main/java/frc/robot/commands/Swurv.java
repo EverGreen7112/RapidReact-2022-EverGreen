@@ -35,7 +35,7 @@ public class Swurv extends CommandBase {
 
     // Should I turn \\
     if (!(Math.abs(Controls.getM_rightJoystick().getY()) <= Constants.MathConsts.JOYSTICK_MINIMUM &&
-     Math.abs(Controls.getM_rightJoystick().getX()) <= Constants.MathConsts.JOYSTICK_MINIMUM)){
+     Math.abs(Controls.getM_rightJoystick().getX()) <= Constants.MathConsts.JOYSTICK_MINIMUM)) {
 
       //  Dashboard \\
       SmartDashboard.putNumber("Gyro", (360 + Chassis.getInstance().getGyroAngleInDegrees()) % 360);

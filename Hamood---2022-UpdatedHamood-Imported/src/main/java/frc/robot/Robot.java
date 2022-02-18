@@ -116,13 +116,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    Controls.movePeriodic(); // uses tank-drive with joysticks \\
+    //Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
-<<<<<<< Updated upstream
-    // Controls.commandsPeriodic(); // Calls all of the commands \\
-=======
-    //Controls.commandsPeriodic(); // Calls all of the commands \\
->>>>>>> Stashed changes
+    Controls.commandsPeriodic(); // Calls all of the commands \\
     
   }
 

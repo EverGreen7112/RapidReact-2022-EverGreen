@@ -20,10 +20,10 @@ import frc.robot.PidSpeedControllerGroup;
 public class Chassis extends SubsystemBase {
 
   // initialize right motors
-  private MotorControllerGroup m_right = new MotorControllerGroup(new com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack));
+  private MotorControllerGroup m_right = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisRight1), new WPI_VictorSPX(Constants.MotorPorts.chassisRight2), new WPI_VictorSPX(Constants.MotorPorts.chassisRight3));
   
   // initialize left motors 
-  private MotorControllerGroup m_left = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
+  private MotorControllerGroup m_left = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeft1), new WPI_VictorSPX(Constants.MotorPorts.chassisLeft2), new WPI_VictorSPX(Constants.MotorPorts.chassisLeft3));
 
   // Gyro local variable \\
   private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
@@ -33,10 +33,12 @@ public class Chassis extends SubsystemBase {
 
   // Pid Controllers \\
   //creating pid controllers for angle velocity and distance
-  private PIDController 
-    m_anglePID = new PIDController(Constants.StuffThatPID.ANGLE_KP, Constants.StuffThatPID.ANGLE_KI, Constants.StuffThatPID.ANGLE_KD),
-    m_velocityPID = new PIDController(Constants.StuffThatPID.VELOCITY_KP, Constants.StuffThatPID.VELOCITY_KI, Constants.StuffThatPID.VELOCITY_KD),
-    m_distancePID = new PIDController(Constants.StuffThatPID.DISTANCE_KP, Constants.StuffThatPID.DISTANCE_KI, Constants.StuffThatPID.DISTANCE_KD);
+  private static PIDController 
+    m_anglePID = new PIDController(Constants.StuffThatPID.ANGLE_KP, Constants.StuffThatPID.ANGLE_KI, Constants.StuffThatPID.ANGLE_KD);
+
+  private PIDController m_velocityPID = new PIDController(Constants.StuffThatPID.VELOCITY_KP, Constants.StuffThatPID.VELOCITY_KI, Constants.StuffThatPID.VELOCITY_KD);
+
+  private PIDController m_distancePID = new PIDController(Constants.StuffThatPID.DISTANCE_KP, Constants.StuffThatPID.DISTANCE_KI, Constants.StuffThatPID.DISTANCE_KD);
   // Constructor \\
   private Chassis() {
     m_left.setInverted(true);
@@ -76,7 +78,7 @@ public class Chassis extends SubsystemBase {
     return Math.toDegrees(m_gyro.getAngle());
   }
 
-  public PIDController getAnglePID() { // Get robot angle \\
+  public static PIDController getAnglePID() { // Get robot angle \\
     return m_anglePID;
   }
 

@@ -15,16 +15,17 @@ public final class Constants {
     }
     public interface MotorPorts {
         public static final int
-        chassisRightBack = 14, //WPI_VictorSPX
-        chassisRightFront = 15, //WPI_VictorSPX
-        chassisLeftBack = 0, //WPI_VictorSPX
-        chassisLeftFront = 1, //WPI_VictorSPX
+        chassisRight1 = 14, //WPI_VictorSPX
+        chassisRight2 = 15, //WPI_VictorSPX
+        chassisRight3 = 12, //WPI_VictorSPX
+        chassisLeft1 = 0, //WPI_VictorSPX
+        chassisLeft2 = 1, //WPI_VictorSPX
+        chassisLeft3 = 3,
         collector = 12; //WPI_VictorSPX
     }
     //-------------------------------------------------------------------------------------------------------------\\
     //Detail Piston Components
     public interface PistonPorts {
-    
         
     }
     //-------------------------------------------------------------------------------------------------------------\\
@@ -78,12 +79,8 @@ public final class Constants {
     public interface MathConsts {
         public static final double 
             COLLECTOR_SPEED = 0.7,
-<<<<<<< Updated upstream
             CHASSIS_MOTOR_SPEED = 0.8,
             JOYSTICK_MINIMUM = 0.5;
-=======
-            CHASSIS_MOTOR_SPEED = 0.2;
->>>>>>> Stashed changes
     }
 
     //-------------------------------------------------------------------------------------------------------------\\
@@ -108,18 +105,18 @@ public final class Constants {
         DISTANCE_TOLERANCE = 1,
 
         // Swurv PID Variables \\
-        SWURV_KP = 0.001,
-        SWURV_KI = 0.0,
-        SWURV_KD = 0.0,
+        SWURV_KP = 0.00001,
+        SWURV_KI = 0.04,
+        SWURV_KD = 0.00008,
         SWURV_TOLERANCE = 0.25;
     }
     //-------------------------------------------------------------------------------------------------------------\\
     public interface Sensors {
         public static final int
-        ENCODER_ONE = 4,
+        ENCODER_ONE = 2,
         ENCODER_TWO = 5,
-        ENCODER_THREE = 7,
-        ENCODER_FOUR = 8;
+        ENCODER_THREE = 0,
+        ENCODER_FOUR = 1;
     }
     //-------------------------------------------------------------------------------------------------------------\\
     // Old Robot Shit \\
@@ -159,7 +156,6 @@ public final class Constants {
             rolletaMicroSwitchDown = 4,
             rolletaMicroSwitchUp = 5,
             aimerSwitch = 6;
-
         }
         public interface AnalogPorts{
             public static final int 
