@@ -7,7 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.TurnAndShit; 
+import frc.robot.Static.RobotContainer.Controls;
+import frc.robot.Static.commands.PID_turn;
+import frc.robot.Static.sensors.GyroClass;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,8 +19,8 @@ import frc.robot.commands.TurnAndShit;
  */
 public class Robot extends TimedRobot {
 
+
   private Command m_autonomousCommand;
-  private RobotContainer m_robotContainer;
 
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -27,14 +29,13 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit(){
+    m_autonomousCommand = new PID_turn(90).withTimeout(7);
+
+    super.robotInit(); 
     // creates all the joystick variables
     Controls.init();
-
-    // create an instance of the reverse controls command
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    GyroClass.getGyro().reset();
   }
 
 
@@ -68,29 +69,33 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    // schedule the autonomous command (example)
-    System.out.println("About to turn");
-    Command turnAndShitComm = new TurnAndShit(90).withTimeout(20);
-    System.out.println("Turned");
 
-    turnAndShitComm.schedule();
+    // Command m_moveSpeedPID = new moveSpeedPID(0, 0).withTimeout(0.1); // speed pid command initialization
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {    
+    //SmartDashboard.putNumber("Gyro Value", Chassis.getInstance().getGyro().getAngle());
+    //SmartDashboard.putNumber("error", Chassis.getInstance().getAnglePID().getPositionError());
+  }
 
   //-------------------------------------------------------------------------------------------------------------\\
   @Override
   public void teleopInit() {
+    
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -98,10 +103,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    Controls.movePeriodic(); // uses tank-drive with joysticks \\
+    //Controls.movePeriodic(); // uses tank-drive with joysticks \\
 
     Controls.commandsPeriodic(); // Calls all of the commands \\
-
+    
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -111,8 +116,10 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
   }
 
-  //-------------------------------------------------------------------------------------------------------------\\
-  /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    Controls.commandsPeriodic(); // Calls all of the commands \\
+
+  }
+
 }
