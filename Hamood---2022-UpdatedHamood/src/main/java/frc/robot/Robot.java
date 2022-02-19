@@ -1,5 +1,7 @@
 package frc.robot; // Package
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 // Imports \\
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -80,10 +82,10 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
   }
 
+  WPI_VictorSPX motor = new WPI_VictorSPX(0);
   @Override
   public void testPeriodic() {
-    Controls.commandsPeriodic(); // Calls all of the commands \\
-
+    motor.set(-0.1);
   }
 
 }
