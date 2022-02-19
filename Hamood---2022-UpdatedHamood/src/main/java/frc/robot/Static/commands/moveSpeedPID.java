@@ -1,9 +1,7 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// TODO: comment the entire file
+package frc.robot.Static.commands; // Package
 
-package frc.robot.Static.commands;
-
+// imports \\
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.Static.PID_FILES.PidSpeedControllerGroup;
@@ -11,27 +9,27 @@ import frc.robot.Static.RobotContainer.Constants;
 import frc.robot.Static.RobotContainer.NoneConstants;
 import frc.robot.Static.subsystems.Chassis;
 
+// MSP class \\
 public class moveSpeedPID extends CommandBase {
 
   private static Encoder m_encoderL = new Encoder(Constants.Sensors.ENCODER_ONE, Constants.Sensors.ENCODER_TWO);
 
-  private static PidSpeedControllerGroup m_MotorControllerL; 
-
   private static Encoder m_encoderR = new Encoder(Constants.Sensors.ENCODER_THREE, Constants.Sensors.ENCODER_FOUR);
-  //check if the sides are right
-  private static PidSpeedControllerGroup m_MotorControllerR;
 
+  // Motor Controllers local variables \\
+  private static PidSpeedControllerGroup m_MotorControllerL, m_MotorControllerR; 
 
-  private double m_speedL;
-  private double m_speedR;
+  // Local speed variables \\
+  private double m_speedL, m_speedR;
 
-  /** Creates a new moveSpeedPID. */
+  // MSP Constructor \\
   public moveSpeedPID(double speedL, double speedR) {
-    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Chassis.getInstance());
+
+    // Defining The Local Speed Vars \\
     m_speedL = speedL;
     m_speedR = speedR;
 
-    addRequirements(Chassis.getInstance());
   }
 
   // Called when the command is initially scheduled.

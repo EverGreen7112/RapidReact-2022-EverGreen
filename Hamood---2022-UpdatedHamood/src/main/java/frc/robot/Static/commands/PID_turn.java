@@ -1,20 +1,21 @@
-package frc.robot.Static.commands;
+// TODO: Add comments to the entire file \\
 
+package frc.robot.Static.commands; // Package
+
+// imports \\
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Static.sensors.GyroClass;
+import frc.robot.Static.Sensors.GyroClass;
 import frc.robot.Static.subsystems.Chassis;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
-public class PID_turn extends PIDCommand implements DoubleArgCommand {
+// PT class \\
+public class PID_turn extends PIDCommand {
     private String values;
 
     @Override
     public void initialize() {
         GyroClass.ResetAnglePID();
         super.initialize();
-        //Chassis.getInstance().getGyro().reset();
+        GyroClass.ResetGyro();
         values = "";
     }
 
@@ -45,33 +46,4 @@ public class PID_turn extends PIDCommand implements DoubleArgCommand {
     public boolean isFinished() {
         return false;
     }
-
-    @Override
-    public void setValue(double setpoint) {
-        setSetPoint(setpoint);
-    }
-
-    @Override
-    public double getValue() {
-        return getSetPoint();
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        super.end(interrupted);
-
-        FileWriter file = null;
-        try {
-            file = new FileWriter("/home/lvuser/values.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            file.write(values);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

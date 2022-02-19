@@ -1,27 +1,27 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+package frc.robot.Static.commands.CollectorCommands; // Package
 
-package frc.robot.Static.commands.CollectorCommands;
+// imports \\
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Static.subsystems.Collector;
 
-// this command is used to collect things
-
+// CC class \\
 public class CollectorComm extends CommandBase {
 
+  // CC constructor \\
   public CollectorComm() {
-    addRequirements(Collector.getInstance());
+    addRequirements(Collector.getInstance()); // making sure that there is only one command
   }
 
+  // When command is first called \\
   @Override
   public void initialize() {
-    Collector.set(0.4);
+    Collector.getM_CollectorMotor().set(0.4); // Starts the motor
   }
 
+  // When command has ended \\
   @Override
   public void end(boolean interrupted) {
-      Collector.set(0);
+      Collector.getM_CollectorMotor().stopMotor(); // Stops the motor
       super.end(interrupted);
   }
 }

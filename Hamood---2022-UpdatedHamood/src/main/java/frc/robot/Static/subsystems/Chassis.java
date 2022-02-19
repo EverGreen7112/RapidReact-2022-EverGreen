@@ -1,14 +1,15 @@
-package frc.robot.Static.subsystems;
+package frc.robot.Static.subsystems; // Package
 
-
+// imports \\
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Static.RobotContainer.Constants;
-import frc.robot.Static.sensors.GyroClass;
+import frc.robot.Static.Sensors.GyroClass;
 
+// Chassis class \\
 public class Chassis extends SubsystemBase {
 
   // initialize right motors
@@ -29,8 +30,8 @@ public class Chassis extends SubsystemBase {
 
   // Constructor \\
   private Chassis() {
-    m_left.setInverted(true);
-    GyroClass.getGyro().reset();
+    m_left.setInverted(true); // Inverting the left motor so it would drive in the right direction
+    GyroClass.ResetGyro(); // reseting the gyro once Chassis is created
   }
 
   // Getter of instance \\
@@ -38,29 +39,34 @@ public class Chassis extends SubsystemBase {
     return m_chassis;
   }
 
-  // seting the speeds of the motors
+  // Moving the right motor by setting the speed \\
   public void setRightMotorsSpeed(double speed) {
-    m_right.set(speed); 
+    m_right.set(speed); // Moving the right motor
   }
 
+  // Moving the left motor by setting the speed
   public void setLeftMotorsSpeed(double speed) {
-    m_left.set(speed); 
+    m_left.set(speed); // Moving the right motor
   }
 
   // tank move (using the speed controllers above)
   public void tankMove(double leftSpeed, double rightSpeed) {
-    this.setRightMotorsSpeed(rightSpeed);
-    this.setLeftMotorsSpeed(leftSpeed);
+    this.setRightMotorsSpeed(rightSpeed); // Moving the right motor
+    this.setLeftMotorsSpeed(leftSpeed); // Moving the left motor
   }
 
+
+  // Turning the robot \\
   public void turn(double speed){
-    this.tankMove(-speed, speed);
+    this.tankMove(-speed, speed); // moving the motors
   }
 
+  // Getter of left motor group \\
   public MotorControllerGroup getM_left() {
       return m_left;
   }
 
+  // Getter of right motor group \\
   public MotorControllerGroup getM_right() {
       return m_right;
   }

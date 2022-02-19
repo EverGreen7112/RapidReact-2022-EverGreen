@@ -1,3 +1,4 @@
+// TODO: comment the entire file
 package frc.robot.Static.PID_FILES;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -10,7 +11,7 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
     // Local class variables \\
     private PIDController m_pidController;
     private Encoder m_encoder;
-    //-----------------------------------------------------------------------------------------\\
+
     //constructor\\
     public PidSpeedControllerGroup(Encoder encoder,double setpoint,double kp, double ki, double kd, MotorControllerGroup motorControllerGroup) {
         
@@ -24,36 +25,30 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
 
         this.m_encoder.setDistancePerPulse(EncoderRateToDistance(20, 10.71, 0.1524));
     }
-    //-----------------------------------------------------------------------------------------\\
+
     public void setSpeed(double setpoint) {
         m_pidController.setSetpoint(setpoint); // set the setpoint\\
     }
-    //-----------------------------------------------------------------------------------------\\
+    
     // Moving a SpeedControllerGroup \\
     @Override
     public void set(double speed){
         this.setSpeed(speed);
         this.move();
     }
-    //-----------------------------------------------------------------------------------------\\
+    
     // Moving the entire tank \\
     public void move() {
          super.set(m_pidController.calculate(m_encoder.getRate(),
          m_pidController.getSetpoint()));
          SmartDashboard.putNumber("pid value position", m_pidController.getPositionError());
     }
-    //-----------------------------------------------------------------------------------------\\
+    
     // sets PID K values \\
     public void setPID(double kp, double ki, double kd){
         m_pidController.setPID(kp, ki, kd);
         
     }
-
-    //-----------------------------------------------------------------------------------------\\
-    // puts the updated speed rate values  \\
-    /* public void putUpdatedRate(){
-        SmartDashboard.putNumber("speed rate", Collector.getM_encoder().getRate());
-    } */
 
     public double getRateByDistance() {
         double returnedRate = this.m_encoder.getDistance() - NoneConstants.previousDistance;

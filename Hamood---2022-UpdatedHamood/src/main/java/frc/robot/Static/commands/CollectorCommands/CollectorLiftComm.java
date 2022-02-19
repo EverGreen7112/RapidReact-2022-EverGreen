@@ -1,48 +1,51 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+package frc.robot.Static.commands.CollectorCommands; // Package
 
-package frc.robot.Static.commands.CollectorCommands;
+// imports \\
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Static.subsystems.Collector;
 
+// CLC class \\
 public class CollectorLiftComm extends CommandBase { 
 
   private boolean m_isDown; // tracks the position of the collector
 
+  // CLC Constructor \\
   public CollectorLiftComm() {
-    addRequirements(Collector.getInstance());
+    addRequirements(Collector.getInstance()); // making sure that there is only one command like this
   }
 
-
+  // When Command is first called \\
   @Override
   public void initialize() {
 
     // initialize the m_isDown variable based on the starting position \\
 
-    if (Collector.getM_bottomLimitSwitch().get()) {
+    if (Collector.getM_bottomLimitSwitch().get()) { // if the switch is pressed
       m_isDown = true;
     }
-    else {
+    else { // if the switch is not pressed
       m_isDown = false;
     }
 
-    if (m_isDown) {
-      Collector.getM_collectorLift().set(0.2); // TODO make sure this number is OK before running
+    if (m_isDown) { // if the collector is down
+      // TODO make sure this number is OK before running
+      Collector.getM_collectorLift().set(0.2); // set motor speed
     }
     else {
-      Collector.getM_collectorLift().set(-0.2); // TODO make sure this number is OK before running
+      // TODO make sure this number is OK before running
+      Collector.getM_collectorLift().set(-0.2); // set motor speed
     }
   }
 
+  // When commad is about to end \\
   @Override
   public void end(boolean interrupted) {
-    Collector.getM_collectorLift().set(0); // I don't think set(0) is necessary here but it's here just to make sure it stops
-    Collector.getM_collectorLift().stopMotor();
+    Collector.getM_collectorLift().stopMotor(); // Stops the motor
   }
 
+  // Check if command needs to end \\
   @Override
   public boolean isFinished() {
-    return (Collector.getM_topLimitSwitch().get() || Collector.getM_bottomLimitSwitch().get());
+    return (Collector.getM_topLimitSwitch().get() || Collector.getM_bottomLimitSwitch().get()); // if both switches are pressed return true
   }
 }

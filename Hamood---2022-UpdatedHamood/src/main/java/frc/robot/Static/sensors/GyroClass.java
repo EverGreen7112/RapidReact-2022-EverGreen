@@ -1,4 +1,4 @@
-package frc.robot.Static.sensors;
+package frc.robot.Static.Sensors;
 
 // imports \\
 import com.kauailabs.navx.frc.AHRS; // Gyro liberary import
@@ -31,5 +31,10 @@ public class GyroClass {
     // Reset the Angle PID \\ 
     public static void ResetAnglePID() {
         m_anglePID.reset(); // resets the PID
+    }
+
+    // Reset the gyro \\
+    public static void ResetGyro() {
+        m_gyro.reset();
     }
 }

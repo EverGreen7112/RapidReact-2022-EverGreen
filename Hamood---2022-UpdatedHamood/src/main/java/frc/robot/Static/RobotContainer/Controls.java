@@ -1,12 +1,13 @@
+// TODO: comment the entire file
 package frc.robot.Static.RobotContainer;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Static.Sensors.GyroClass;
 import frc.robot.Static.commands.Swurv;
 import frc.robot.Static.commands.CollectorCommands.CollectorComm;
-import frc.robot.Static.sensors.GyroClass;
 import frc.robot.Static.subsystems.*;
 
 
@@ -21,7 +22,6 @@ public class Controls{
     
 
   // initialize \\
-  //-------------------------------------------------------------------------------------------------------------\\
   public static void init() {
     // Joysticks \\
     m_rightJoystick = new Joystick(Constants.JoystickPorts.rightChassisJS);
@@ -54,14 +54,11 @@ public class Controls{
       return m_operatorJoystick;
   }
 
-  //--------------------------------------------------------------------------------\\
-
   // Buttons \\
   // gets the Collector button
   public static JoystickButton getM_collectorButton() {
     return m_collectorButton;
   }
-  //--------------------------------------------------------------------------------\\
   
   // uses tank-drive whil in periodic mode
   public static void movePeriodic() { 
