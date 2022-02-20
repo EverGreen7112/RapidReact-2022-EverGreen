@@ -1,8 +1,5 @@
 package frc.robot.RobotContainer;
 
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.I2C.Port;
-
 public final class Constants {
     public interface testValues {
         public static final double 
@@ -17,7 +14,10 @@ public final class Constants {
         chassisLeft2 = 1, //WPI_VictorSPX
         chassisLeft3 = 3,
         collector = 0, //WPI_VictorSPX TODO change to the right port
-        collectorLift = 0; //WPI_VictorSPX TODO change to the right port
+        collectorLift = 0, //WPI_VictorSPX TODO change to the right port
+        cassBottom = 0,
+        cassTop = 0;
+
     }
     //-------------------------------------------------------------------------------------------------------------\\
     //Detail Piston Components
@@ -76,6 +76,8 @@ public final class Constants {
         public static final double 
             COLLECTOR_SPEED = 0.7,
             CHASSIS_MOTOR_SPEED = 0.8,
+            CAS_MOTOR_SPEED = 0.8,
+            CL_MOTOR_SPEED = 0.2,
             JOYSTICK_MINIMUM = 0.5;
     }
 
@@ -116,7 +118,7 @@ public final class Constants {
     }
     //-------------------------------------------------------------------------------------------------------------\\
     // Old Robot Shit \\
-    public interface oldRobotShit {
+    /*public interface oldRobotShit {
         public interface MotorPorts {
             public static final int
             chassisRightBack = 0, //WPI_VictorSPX
@@ -194,5 +196,5 @@ public final class Constants {
             backCamera = 0;
 
         }
-    }
+    }*/
 }

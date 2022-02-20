@@ -7,6 +7,7 @@ import frc.robot.subsystems.Collector;
 // CC class \\
 public class CollectorComm extends CommandBase {
 
+
   // CC constructor \\
   public CollectorComm() {
     addRequirements(Collector.getInstance()); // making sure that there is only one command

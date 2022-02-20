@@ -2,11 +2,10 @@ package frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Sensors;
-import frc.robot.commands.Swurv;
+import frc.robot.commands.ContainAndShoot;
 import frc.robot.commands.CollectorCommands.CollectorComm;
+import frc.robot.commands.CollectorCommands.CollectorLiftComm;
 import frc.robot.subsystems.*;
 
 
@@ -17,7 +16,9 @@ public class Controls{
 
     // Joystick Button Variables \\
     private static JoystickButton m_collectorButton;
+    private static JoystickButton m_rightTrigger;
     private static POVButton m_DpadButtonUp, m_DpadButtonDown;
+    private static JoystickButton m_operatorJS_LB;
     
 
   // initialize \\
@@ -29,6 +30,8 @@ public class Controls{
 
     // Left & Right Joystick Buttons \\
     m_collectorButton = new JoystickButton(m_leftJoystick, Constants.ButtonPorts.LEFT_JS_COLLECTOR);
+    m_rightTrigger = new JoystickButton(m_rightJoystick, Constants.ButtonPorts.LEFT_JS_COLLECTOR);
+    m_operatorJS_LB = new JoystickButton(m_operatorJoystick, Constants.ButtonPorts.OPERATOR_JS_LB);
   
     // Operator Buttons \\
     // NOTE: pove buttons need to get actual angles from 0 to 360 with 0 being up and 180 down going clockwise
@@ -58,6 +61,9 @@ public class Controls{
   public static JoystickButton getM_collectorButton() {
     return m_collectorButton;
   }
+  public static JoystickButton getM_rightTrigger() {
+      return m_rightTrigger;
+  }
   
   // uses tank-drive whil in periodic mode
   public static void movePeriodic() { 
@@ -80,16 +86,21 @@ public class Controls{
 
   // all the commands that are linked to buttons are initialized here \\
   public static void commandsPeriodic() {
-    // Collector Command \\
+    // Collector Commands \\
     CollectorComm collectorComm = new CollectorComm();
     m_collectorButton.whileHeld(collectorComm);
 
+    toggleCollector(); // Toggle button to call the collector lift comm
+
     // Swurv command
-    Swurv swurvComm = new Swurv();
-    swurvComm.execute();
+    //Swurv swurvComm = new Swurv();
+    //swurvComm.execute();
     // m_collectorButton.whenHeld(swurvComm);
-    SmartDashboard.putNumber("Gyro Angle", Sensors.getGyro().getAngle());
-    SmartDashboard.putNumber("Joystick angle", Controls.getRightJoystickAsAngle());
+
+    // Contain \\
+    ContainAndShoot CAS = new ContainAndShoot();
+    m_rightTrigger.whileHeld(CAS);
+    
   }
 
 
@@ -99,5 +110,14 @@ public class Controls{
 
   public static double getRightJoystickAsAngle(){
     return ((Math.atan2(-m_rightJoystick.getX(), m_rightJoystick.getY()) * 180 / Math.PI) + 180) % 360;
+  }
+
+  public static void toggleCollector() {
+
+    CollectorLiftComm CLC = new CollectorLiftComm();
+
+    if (m_operatorJS_LB.getAsBoolean()) {
+      CLC.schedule();
+    }
   }
 }

@@ -2,11 +2,11 @@ package frc.robot.commands.CollectorCommands; // Package
 
 // imports \\
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer.Constants;
 import frc.robot.subsystems.Collector;
 
 // CLC class \\
 public class CollectorLiftComm extends CommandBase { 
-
   private boolean m_isDown; // tracks the position of the collector
 
   // CLC Constructor \\
@@ -22,7 +22,7 @@ public class CollectorLiftComm extends CommandBase {
 
     m_isDown = Collector.getM_bottomLimitSwitch().get();
 
-    Collector.getM_collectorLift().set(0.2 * (m_isDown ? 1 : -1)); // if true then .set(0.2) else .set(-0.2)
+    Collector.getM_collectorLift().set(Constants.MathConsts.CL_MOTOR_SPEED * (m_isDown ? 1 : -1)); // if true then .set(0.2) else .set(-0.2)
   }
 
   // When commad is about to end \\
