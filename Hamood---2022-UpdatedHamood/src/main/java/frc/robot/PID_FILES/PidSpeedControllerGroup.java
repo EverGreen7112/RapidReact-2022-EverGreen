@@ -1,10 +1,9 @@
-// TODO: comment the entire file
-package frc.robot.Static.PID_FILES;
+package frc.robot.PID_FILES;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Static.RobotContainer.NoneConstants;
+import frc.robot.RobotContainer.NoneConstants;
 import edu.wpi.first.math.controller.PIDController;
 
 public class PidSpeedControllerGroup extends MotorControllerGroup{

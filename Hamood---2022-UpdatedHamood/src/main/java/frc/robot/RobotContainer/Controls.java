@@ -1,14 +1,13 @@
-// TODO: comment the entire file
-package frc.robot.Static.RobotContainer;
+package frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Static.Sensors.GyroClass;
-import frc.robot.Static.commands.Swurv;
-import frc.robot.Static.commands.CollectorCommands.CollectorComm;
-import frc.robot.Static.subsystems.*;
+import frc.robot.sensors.GyroClass;
+import frc.robot.commands.Swurv;
+import frc.robot.commands.CollectorCommands.CollectorComm;
+import frc.robot.subsystems.*;
 
 
 public class Controls{

@@ -6,9 +6,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Static.RobotContainer.Controls;
-import frc.robot.Static.Sensors.GyroClass;
-import frc.robot.Static.commands.PID_turn;
+import frc.robot.RobotContainer.Controls;
+import frc.robot.sensors.GyroClass;
+import frc.robot.commands.PID_turn;
 
 // Robot Class \\
 public class Robot extends TimedRobot {

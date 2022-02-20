@@ -1,11 +1,9 @@
-// TODO: Add comments to the entire file \\
-
-package frc.robot.Static.commands; // Package
+package frc.robot.commands; // Package
 
 // imports \\
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Static.Sensors.GyroClass;
-import frc.robot.Static.subsystems.Chassis;
+import frc.robot.sensors.GyroClass;
+import frc.robot.subsystems.Chassis;
 
 // PT class \\
 public class PID_turn extends PIDCommand {

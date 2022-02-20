@@ -1,8 +1,8 @@
-package frc.robot.Static.commands.CollectorCommands; // Package
+package frc.robot.commands.CollectorCommands; // Package
 
 // imports \\
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Static.subsystems.Collector;
+import frc.robot.subsystems.Collector;
 
 // CC class \\
 public class CollectorComm extends CommandBase {

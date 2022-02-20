@@ -1,5 +1,4 @@
-// TODO: comment the entire file
-package frc.robot.Static.RobotContainer;
+package frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;

@@ -1,4 +1,4 @@
-package frc.robot.Static.subsystems; // Package
+package frc.robot.subsystems; // Package
 
 // imports \\
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Static.RobotContainer.Constants;
-import frc.robot.Static.Sensors.GyroClass;
+import frc.robot.RobotContainer.Constants;
+import frc.robot.sensors.GyroClass;
 
 // Chassis class \\
 public class Chassis extends SubsystemBase {

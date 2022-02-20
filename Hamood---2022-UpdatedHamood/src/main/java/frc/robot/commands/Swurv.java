@@ -1,13 +1,12 @@
-// TODO: comment the entire file
-package frc.robot.Static.commands;
+package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Static.RobotContainer.Constants;
-import frc.robot.Static.RobotContainer.Controls;
-import frc.robot.Static.Sensors.GyroClass;
-import frc.robot.Static.subsystems.Chassis;
+import frc.robot.RobotContainer.Constants;
+import frc.robot.RobotContainer.Controls;
+import frc.robot.sensors.GyroClass;
+import frc.robot.subsystems.Chassis;
 
 public class Swurv extends CommandBase {
   PIDController m_pid = new PIDController(Constants.StuffThatPID.SWURV_KP,

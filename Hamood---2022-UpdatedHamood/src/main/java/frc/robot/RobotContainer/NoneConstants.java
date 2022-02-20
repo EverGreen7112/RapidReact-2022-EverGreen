@@ -1,4 +1,4 @@
-package frc.robot.Static.RobotContainer; // Package
+package frc.robot.RobotContainer; // Package
 
 // NC class \\
 public class NoneConstants {

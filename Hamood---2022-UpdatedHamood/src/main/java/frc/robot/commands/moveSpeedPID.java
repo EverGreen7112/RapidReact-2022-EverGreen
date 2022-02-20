@@ -1,13 +1,12 @@
-// TODO: comment the entire file
-package frc.robot.Static.commands; // Package
+package frc.robot.commands; // Package
 
 // imports \\
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Encoder;
-import frc.robot.Static.PID_FILES.PidSpeedControllerGroup;
-import frc.robot.Static.RobotContainer.Constants;
-import frc.robot.Static.RobotContainer.NoneConstants;
-import frc.robot.Static.subsystems.Chassis;
+import frc.robot.PID_FILES.PidSpeedControllerGroup;
+import frc.robot.RobotContainer.Constants;
+import frc.robot.RobotContainer.NoneConstants;
+import frc.robot.subsystems.Chassis;
 
 // MSP class \\
 public class moveSpeedPID extends CommandBase {

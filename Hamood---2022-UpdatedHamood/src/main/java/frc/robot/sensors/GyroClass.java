@@ -1,9 +1,9 @@
-package frc.robot.Static.Sensors;
+package frc.robot.sensors;
 
 // imports \\
 import com.kauailabs.navx.frc.AHRS; // Gyro liberary import
 import edu.wpi.first.wpilibj.SPI; // SPI port import
-import frc.robot.Static.RobotContainer.Constants;
+import frc.robot.RobotContainer.Constants;
 import edu.wpi.first.math.controller.PIDController; // PID controller import for m_anglePID
 
 public class GyroClass {
