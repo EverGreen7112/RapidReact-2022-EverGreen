@@ -1,5 +1,6 @@
 package frc.robot.subsystems; // Package
 
+import edu.wpi.first.math.controller.PIDController;
 // imports \\
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
@@ -22,6 +23,10 @@ public class Chassis extends SubsystemBase {
   private static final Chassis m_chassis = new Chassis(); // creates the only instance of Chassis
 
   // Pid Controllers \\
+
+  // PID Variables \\
+  private static PIDController m_anglePID = new PIDController(Constants.StuffThatPID.ANGLE_KP, Constants.StuffThatPID.ANGLE_KI, Constants.StuffThatPID.ANGLE_KD); // Angle PID Controller
+
   /*
   UNUSED!
   private PIDController m_velocityPID = new PIDController(Constants.StuffThatPID.VELOCITY_KP, Constants.StuffThatPID.VELOCITY_KI, Constants.StuffThatPID.VELOCITY_KD);
@@ -69,5 +74,15 @@ public class Chassis extends SubsystemBase {
   // Getter of right motor group \\
   public MotorControllerGroup getM_right() {
       return m_right;
+  }
+
+  // Get Robot Angle \\
+  public static PIDController getAnglePID() {
+    return m_anglePID; // returns the angle
+  }
+
+  // Reset the Angle PID \\ 
+  public static void ResetAnglePID() {
+      m_anglePID.reset(); // resets the PID
   }
 }

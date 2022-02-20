@@ -11,7 +11,7 @@ public class PID_turn extends PIDCommand {
 
     @Override
     public void initialize() {
-        Sensors.ResetAnglePID();
+        Chassis.ResetAnglePID();
         super.initialize();
         Sensors.ResetGyro();
         values = "";
@@ -26,7 +26,7 @@ public class PID_turn extends PIDCommand {
     }
 
     public PID_turn(double setpoint) {
-        super(Sensors.getAnglePID(), // Controller
+        super(Chassis.getAnglePID(), // Controller
                 () -> Sensors.getGyro().getAngle(), // Mesurement Source
                 () -> setpoint, // Setpoint Supplier
                 Chassis.getInstance()::turn, // Output Consumer

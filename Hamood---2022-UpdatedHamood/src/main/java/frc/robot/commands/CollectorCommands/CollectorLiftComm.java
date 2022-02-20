@@ -20,32 +20,21 @@ public class CollectorLiftComm extends CommandBase {
 
     // initialize the m_isDown variable based on the starting position \\
 
-    if (Collector.getM_bottomLimitSwitch().get()) { // if the switch is pressed
-      m_isDown = true;
-    }
-    else { // if the switch is not pressed
-      m_isDown = false;
-    }
+    m_isDown = Collector.getM_bottomLimitSwitch().get();
 
-    if (m_isDown) { // if the collector is down
-      // TODO make sure this number is OK before running
-      Collector.getM_collectorLift().set(0.2); // set motor speed
-    }
-    else {
-      // TODO make sure this number is OK before running
-      Collector.getM_collectorLift().set(-0.2); // set motor speed
-    }
+    Collector.getM_collectorLift().set(0.2 * (m_isDown ? 1 : -1)); // if true then .set(0.2) else .set(-0.2)
   }
 
   // When commad is about to end \\
   @Override
   public void end(boolean interrupted) {
+    Collector.getM_collectorLift().set(0);
     Collector.getM_collectorLift().stopMotor(); // Stops the motor
   }
 
   // Check if command needs to end \\
   @Override
   public boolean isFinished() {
-    return (Collector.getM_topLimitSwitch().get() || Collector.getM_bottomLimitSwitch().get()); // if both switches are pressed return true
+    return (Collector.getM_topLimitSwitch().get() || Collector.getM_bottomLimitSwitch().get()); // if one of the switches is pressed return true
   }
 }
