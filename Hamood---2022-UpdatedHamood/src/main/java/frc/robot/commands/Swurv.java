@@ -3,9 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Sensors;
 import frc.robot.RobotContainer.Constants;
 import frc.robot.RobotContainer.Controls;
-import frc.robot.sensors.GyroClass;
 import frc.robot.subsystems.Chassis;
 
 public class Swurv extends CommandBase {
@@ -35,9 +35,9 @@ public class Swurv extends CommandBase {
      Math.abs(Controls.getM_rightJoystick().getX()) <= Constants.MathConsts.JOYSTICK_MINIMUM)) {
 
       //  Dashboard \\
-      SmartDashboard.putNumber("Gyro", (360 + GyroClass.getGyroAngleInDegrees()) % 360);
+      SmartDashboard.putNumber("Gyro", (360 + Sensors.getGyroAngleInDegrees()) % 360);
       SmartDashboard.putNumber("Joystick", Controls.getRightJoystickAsAngle());
-      SmartDashboard.putNumber("Angle error", Controls.getRightJoystickAsAngle() - ((360 + GyroClass.getGyroAngleInDegrees()) % 360));
+      SmartDashboard.putNumber("Angle error", Controls.getRightJoystickAsAngle() - ((360 + Sensors.getGyroAngleInDegrees()) % 360));
 
       // speed calc \\
       double speed = (
@@ -52,7 +52,7 @@ public class Swurv extends CommandBase {
       // error calc \\
       double error = m_pid.calculate(
         (
-          360 + GyroClass.getGyroAngleInDegrees()
+          360 + Sensors.getGyroAngleInDegrees()
         ) % 360,
         Controls.getRightJoystickAsAngle());
       

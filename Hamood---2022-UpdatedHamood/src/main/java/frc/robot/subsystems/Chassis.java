@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Sensors;
 import frc.robot.RobotContainer.Constants;
-import frc.robot.sensors.GyroClass;
 
 // Chassis class \\
 public class Chassis extends SubsystemBase {
@@ -31,7 +31,7 @@ public class Chassis extends SubsystemBase {
   // Constructor \\
   private Chassis() {
     m_left.setInverted(true); // Inverting the left motor so it would drive in the right direction
-    GyroClass.ResetGyro(); // reseting the gyro once Chassis is created
+    Sensors.ResetGyro(); // reseting the gyro once Chassis is created
   }
 
   // Getter of instance \\

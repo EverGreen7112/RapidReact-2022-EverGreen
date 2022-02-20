@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.RobotContainer.Controls;
-import frc.robot.sensors.GyroClass;
 import frc.robot.commands.PID_turn;
 
 // Robot Class \\
@@ -26,7 +25,7 @@ public class Robot extends TimedRobot {
 
     Controls.init(); // Setting up the controls
 
-    GyroClass.getGyro().reset(); // Reseting the gyro
+    Sensors.getGyro().reset(); // Reseting the gyro
   }
 
 

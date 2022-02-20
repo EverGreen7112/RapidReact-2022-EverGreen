@@ -2,7 +2,7 @@ package frc.robot.commands; // Package
 
 // imports \\
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.sensors.GyroClass;
+import frc.robot.Sensors;
 import frc.robot.subsystems.Chassis;
 
 // PT class \\
@@ -11,9 +11,9 @@ public class PID_turn extends PIDCommand {
 
     @Override
     public void initialize() {
-        GyroClass.ResetAnglePID();
+        Sensors.ResetAnglePID();
         super.initialize();
-        GyroClass.ResetGyro();
+        Sensors.ResetGyro();
         values = "";
     }
 
@@ -26,8 +26,8 @@ public class PID_turn extends PIDCommand {
     }
 
     public PID_turn(double setpoint) {
-        super(GyroClass.getAnglePID(), // Controller
-                () -> GyroClass.getGyro().getAngle(), // Mesurement Source
+        super(Sensors.getAnglePID(), // Controller
+                () -> Sensors.getGyro().getAngle(), // Mesurement Source
                 () -> setpoint, // Setpoint Supplier
                 Chassis.getInstance()::turn, // Output Consumer
                 Chassis.getInstance()); // Requirement
@@ -37,7 +37,7 @@ public class PID_turn extends PIDCommand {
     @Override
     public void execute() {
         super.execute(); 
-        values = values.concat("" + GyroClass.getGyro().getAngle() + System.currentTimeMillis() + "\n");
+        values = values.concat("" + Sensors.getGyro().getAngle() + System.currentTimeMillis() + "\n");
     }
 
     @Override

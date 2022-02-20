@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.sensors.GyroClass;
+import frc.robot.Sensors;
 import frc.robot.commands.Swurv;
 import frc.robot.commands.CollectorCommands.CollectorComm;
 import frc.robot.subsystems.*;
@@ -88,7 +88,7 @@ public class Controls{
     Swurv swurvComm = new Swurv();
     swurvComm.execute();
     // m_collectorButton.whenHeld(swurvComm);
-    SmartDashboard.putNumber("Gyro Angle", GyroClass.getGyro().getAngle());
+    SmartDashboard.putNumber("Gyro Angle", Sensors.getGyro().getAngle());
     SmartDashboard.putNumber("Joystick angle", Controls.getRightJoystickAsAngle());
   }
 
