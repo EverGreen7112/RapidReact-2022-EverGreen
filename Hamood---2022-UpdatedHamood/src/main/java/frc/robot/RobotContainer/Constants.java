@@ -16,7 +16,8 @@ public final class Constants {
         collector = 0, //WPI_VictorSPX TODO change to the right port
         collectorLift = 0, //WPI_VictorSPX TODO change to the right port
         cassBottom = 0,
-        cassTop = 0;
+        cassTop = 0,
+        climberMotor = 0;
 
     }
     //-------------------------------------------------------------------------------------------------------------\\
@@ -78,7 +79,8 @@ public final class Constants {
             CHASSIS_MOTOR_SPEED = 0.8,
             CAS_MOTOR_SPEED = 0.8,
             CL_MOTOR_SPEED = 0.2,
-            JOYSTICK_MINIMUM = 0.5;
+            JOYSTICK_MINIMUM = 0.5,
+            CLIMB_SPEED = 0.4;
     }
 
     //-------------------------------------------------------------------------------------------------------------\\
