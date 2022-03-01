@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.PID_FILES.PidSpeedControllerGroup;
 import frc.robot.RobotContainer.Constants;
-import frc.robot.RobotContainer.NoneConstants;
+import frc.robot.RobotContainer.NonConstants;
 import frc.robot.subsystems.Chassis;
 
 // MSP class \\
@@ -41,17 +41,17 @@ public class moveSpeedPID extends CommandBase {
     m_MotorControllerL = new PidSpeedControllerGroup(
     m_encoderR,
     0.0, 
-    NoneConstants.collectorKP, 
-    NoneConstants.collectorKI,
-    NoneConstants.collectorKD, 
+    NonConstants.collectorKP, 
+    NonConstants.collectorKI,
+    NonConstants.collectorKD, 
     Chassis.getInstance().getM_left());
 
     m_MotorControllerR = new PidSpeedControllerGroup(
     m_encoderL,
     0.0, 
-    NoneConstants.collectorKP, 
-    NoneConstants.collectorKI,
-    NoneConstants.collectorKD, 
+    NonConstants.collectorKP, 
+    NonConstants.collectorKI,
+    NonConstants.collectorKD, 
     Chassis.getInstance().getM_right()); 
     
     m_MotorControllerL.set(m_speedL);

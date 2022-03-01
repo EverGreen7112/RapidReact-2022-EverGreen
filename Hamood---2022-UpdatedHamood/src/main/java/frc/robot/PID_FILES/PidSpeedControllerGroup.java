@@ -3,7 +3,7 @@ package frc.robot.PID_FILES;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotContainer.NoneConstants;
+import frc.robot.RobotContainer.NonConstants;
 import edu.wpi.first.math.controller.PIDController;
 
 public class PidSpeedControllerGroup extends MotorControllerGroup{
@@ -50,9 +50,9 @@ public class PidSpeedControllerGroup extends MotorControllerGroup{
     }
 
     public double getRateByDistance() {
-        double returnedRate = this.m_encoder.getDistance() - NoneConstants.previousDistance;
+        double returnedRate = this.m_encoder.getDistance() - NonConstants.previousDistance;
 
-        NoneConstants.previousDistance = this.m_encoder.getDistance();
+        NonConstants.previousDistance = this.m_encoder.getDistance();
 
         return returnedRate;
     }

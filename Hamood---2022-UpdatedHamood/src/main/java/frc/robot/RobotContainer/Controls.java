@@ -97,6 +97,8 @@ public class Controls{
     //swurvComm.execute();
     // m_collectorButton.whenHeld(swurvComm);
 
+    Climber.move(getDPadY() * Constants.MathConsts.CLIMB_SPEED);
+
     // Contain \\
     ContainAndShoot CAS = new ContainAndShoot();
     m_rightTrigger.whileHeld(CAS);

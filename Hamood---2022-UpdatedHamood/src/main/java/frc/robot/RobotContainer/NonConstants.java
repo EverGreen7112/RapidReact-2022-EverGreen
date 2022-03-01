@@ -1,7 +1,12 @@
 package frc.robot.RobotContainer; // Package
 
 // NC class \\
-public class NoneConstants {
+public class NonConstants {
+
+    public static boolean
+        driversControl = true;
+    
+
     public static double 
         //collector\\
         collectorKP = 0.73,

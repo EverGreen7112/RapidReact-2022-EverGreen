@@ -4,6 +4,7 @@ public final class Constants {
     public interface testValues {
         public static final double 
             SPEED_JUMPS = 0.01;
+
     }
     public interface MotorPorts {
         public static final int
@@ -18,7 +19,6 @@ public final class Constants {
         cassBottom = 0,
         cassTop = 0,
         climberMotor = 0;
-
     }
     //-------------------------------------------------------------------------------------------------------------\\
     //Detail Piston Components
@@ -29,6 +29,10 @@ public final class Constants {
     
     //Detail Digital components
     public interface DigitalPorts {
+        public static final int 
+        collectorBottomSwitch = 0, // TODO change all of those to the right ports
+        collectorTopSwitch = 0,
+        climberSwitch = 0;
     }
     //-------------------------------------------------------------------------------------------------------------\\
     public interface AnalogPorts{

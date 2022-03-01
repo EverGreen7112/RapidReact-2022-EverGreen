@@ -28,11 +28,9 @@ public class Collector extends SubsystemBase {
         m_collectorLift = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.collectorLift));
 
         // Setting up the switches \\
-        /*
-        ! ERROR ! - wrong ports. Real ports must be found ASAP
-        m_topLimitSwitch = new DigitalInput(0); // TODO enter the real port
-        m_bottomLimitSwitch = new DigitalInput(0); // TODO enter the real port
-        */
+        /* ! ERROR ! - wrong ports. Real ports must be found ASAP */
+        m_topLimitSwitch = new DigitalInput(Constants.DigitalPorts.collectorTopSwitch); // TODO enter the real port
+        m_bottomLimitSwitch = new DigitalInput(Constants.DigitalPorts.collectorBottomSwitch); // TODO enter the real port
     } 
 
     // Get the instance of subsystem \\
