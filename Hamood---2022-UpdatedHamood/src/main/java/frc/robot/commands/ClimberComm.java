@@ -28,6 +28,6 @@ public class ClimberComm extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return (Climber.getM_bottomSwitch().get());
+    return (!Climber.getM_bottomSwitch().get());
   }
 }
