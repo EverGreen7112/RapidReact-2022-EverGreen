@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 
@@ -85,10 +86,10 @@ public final class Constants {
         public static final double
 
         // Angle PID Variables \\
-        ANGLE_KP = 0.018,
-        ANGLE_KI = 0.001,
+        ANGLE_KP = 0.0186,
+        ANGLE_KI = 0.002,
         ANGLE_KD = 0.003,
-        ANGLE_TOLERANCE = 0.85,
+        ANGLE_TOLERANCE = 0.25,
 
         // Velocity PID Variables \\
         VELOCITY_KP = 0.0468,
@@ -104,8 +105,10 @@ public final class Constants {
     //-------------------------------------------------------------------------------------------------------------\\
     public interface Sensors {
         public static final int
-        ENCODER_COLLECTOR_ONE = 4,
-        ENCODER_COLLECTOR_TWO = 5;
+        ENCODER_ONE = 4,
+        ENCODER_TWO = 5,
+        ENCODER_THREE = 7,
+        ENCODER_FOUR = 8;
     }
     //-------------------------------------------------------------------------------------------------------------\\
     // Old Robot Shit \\
