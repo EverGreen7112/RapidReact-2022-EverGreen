@@ -16,14 +16,19 @@ public class Chassis extends SubsystemBase {
 
   private MotorControllerGroup m_rightMotors, m_leftMotors;
 
+  private WPI_VictorSPX m_leftFront;
+
   private Encoder m_encoderR, m_encoderL;
 
   AHRS m_gyro;
 
   private Chassis() {
     // initialize motors and fix rotation for head side 
+    m_leftFront = new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront);
+    m_leftFront.setInverted(true);
+
     m_rightMotors = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisRightFront), new WPI_VictorSPX(Constants.MotorPorts.chassisRightMiddle), new WPI_VictorSPX(Constants.MotorPorts.chassisRightBack));
-    m_leftMotors = new MotorControllerGroup(new WPI_VictorSPX(Constants.MotorPorts.chassisLeftFront), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftMiddle), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
+    m_leftMotors = new MotorControllerGroup(m_leftFront, new WPI_VictorSPX(Constants.MotorPorts.chassisLeftMiddle), new WPI_VictorSPX(Constants.MotorPorts.chassisLeftBack));
 
     m_rightMotors.setInverted(true);
     

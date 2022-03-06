@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Collector; 
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Collector;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -28,7 +29,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
-  private String trajectoryJSON = "Unnamed.wpilib.json"; // path for trajectory's json
+  private String trajectoryJSON = "Unnamed_1.wpilib.json"; // path for trajectory's json
   public static Trajectory trajectory = new Trajectory(); // create new Trajectory
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -109,8 +110,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Gyro Value", Chassis.getInstance().getGyro().getAngle());
     
-    SmartDashboard.putBoolean("SwitchUp", Collector.getInstance().isUp());
-    SmartDashboard.putBoolean("SwitchDown", Collector.getInstance().isDown());
+    // SmartDashboard.putBoolean("SwitchDown", Collector.getInstance().isDown());
 
   }
 
@@ -131,7 +131,8 @@ public class Robot extends TimedRobot {
 
     // tank move according to joysticks
     Controls.movePeriodic();
-
+    
+    SmartDashboard.putBoolean("SwitchUp", Climber.getInstance().isUp());
   }
 
   //-------------------------------------------------------------------------------------------------------------\\
@@ -147,7 +148,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    
+    Climber.getInstance().set(Constants.Speeds.climberMotor);
   }
 
 }

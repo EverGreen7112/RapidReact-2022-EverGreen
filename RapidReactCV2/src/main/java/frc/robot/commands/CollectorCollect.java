@@ -17,7 +17,7 @@ public class CollectorCollect extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    
+    Collector.getInstance().set(0);
   }
 
 }

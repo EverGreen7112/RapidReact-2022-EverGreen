@@ -4,15 +4,19 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveTrain extends SubsystemBase{
+public class DriveTrain extends SubsystemBase {
 
     private static final DriveTrain m_driveTrain = new DriveTrain(); // drivetrain's instance
 
     private final DifferentialDrive m_drive;
 
     private final DifferentialDriveOdometry m_odometry;
+    
+    private final Field2d m_field;
 
     public DriveTrain(){
 
@@ -28,6 +32,9 @@ public class DriveTrain extends SubsystemBase{
         // uses encoders and the gyro in order to do so
         m_odometry = new DifferentialDriveOdometry(Chassis.getInstance().getGyro().getRotation2d());
 
+        m_field = new Field2d();
+
+        SmartDashboard.putData("Field", m_field);
     }
 
     public static DriveTrain getInstance(){
@@ -51,6 +58,7 @@ public class DriveTrain extends SubsystemBase{
             Chassis.getInstance().getLeftEncoder().getDistance(),
             Chassis.getInstance().getRightEncoder().getDistance());
         
+        m_field.setRobotPose(m_odometry.getPoseMeters());
     }
 
     public Pose2d getPose(){
