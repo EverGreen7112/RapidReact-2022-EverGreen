@@ -43,9 +43,16 @@ public class Controls {
   public static void movePeriodic() {
 
     // tank move robot according to the joystick's movement levels
+
+    // --THE OLD CODE, IT WORKS, USE IF NECESSARY-- \\
+    // Chassis.getInstance().tankMove(
+    //   -m_leftJoystick.getY() * Constants.Speeds.motorSpeed,
+    //   -m_rightJoystick.getY() * Constants.Speeds.motorSpeed);
+    // --OLD CODE END-- \\
+
     Chassis.getInstance().tankMove(
-      -m_leftJoystick.getY() * Constants.Speeds.motorSpeed,
-      -m_rightJoystick.getY() * Constants.Speeds.motorSpeed);
+      -m_leftJoystick.getY() * Constants.Speeds.motorSpeed + m_rightJoystick.getY() * 0.5 * Constants.Speeds.motorSpeed,
+      -m_rightJoystick.getY() * Constants.Speeds.motorSpeed + m_leftJoystick.getY() * 0.5 * Constants.Speeds.motorSpeed);
 
   }
 
