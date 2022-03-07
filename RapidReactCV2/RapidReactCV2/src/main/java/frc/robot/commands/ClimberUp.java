@@ -13,13 +13,13 @@ public class ClimberUp extends CommandBase {
 
     @Override
     public void execute(){
-        if (Climber.getInstance().isUp())
-            Climber.getInstance().set(Constants.Speeds.climberMotor);
+        // if (Climber.getInstance().isUp())
+        Climber.getInstance().set(Constants.Speeds.climberMotor);
     }
 
     @Override
     public boolean isFinished(){
-        return !Climber.getInstance().isUp();
+        return false;
     }
 
     @Override

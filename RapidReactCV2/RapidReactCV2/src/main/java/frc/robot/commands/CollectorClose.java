@@ -8,6 +8,7 @@ public class CollectorClose extends CommandBase {
 
 	@Override
 	public void initialize() {
+		
 		addRequirements(Collector.getInstance());
 	}
 
@@ -23,7 +24,7 @@ public class CollectorClose extends CommandBase {
 
 	@Override
 	public void end(boolean interrupted) {
-		Collector.getInstance().set(0); // completely stop motor movements
+		Collector.getInstance().open(0); // completely stop motor movements
 	}
 
 }

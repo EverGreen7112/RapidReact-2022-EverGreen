@@ -69,7 +69,7 @@ public final class Constants {
             motorSpeed = 0.6,
 			collectorClose = -0.8,
             collectorOpen = 0.3,
-            collectorCollect = 0.7,
+            collectorCollect = 0.6,
             
             climberMotor = 0.8,
             
