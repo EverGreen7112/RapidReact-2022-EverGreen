@@ -3,8 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Date;
+import java.util.Timer;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
@@ -19,102 +22,130 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Collector;
 
 /**
- * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the
+ * name of this class or
+ * the package after creating this project, you must also update the
+ * build.gradle file in the
  * project.
  */
 public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-
-  private String trajectoryJSON = "Unnamed_1.wpilib.json"; // path for trajectory's json
+  private long startTime = System.currentTimeMillis();
+  private String trajectoryJSON = "Unnamed.wpilib.json"; // path for trajectory's json
   public static Trajectory trajectory = new Trajectory(); // create new Trajectory
 
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
   /**
-   * This function is run when the robot is first started up and should be used for any
+   * This function is run when the robot is first started up and should be used
+   * for any
    * initialization code.
    */
   @Override
-  public void robotInit(){
-    
+  public void robotInit() {
+
     try {
       // get movement path from json
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
       if (trajectoryPath != null) // turn movement path into trajectory
         trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-      
-   } catch (IOException ex) {
+
+    } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-   }
-   
-   // reset gyro's rotation value
-   Chassis.getInstance().getGyro().reset();
+    }
 
-   super.robotInit();
+    // reset gyro's rotation value
+    Chassis.getInstance().getGyro().reset();
 
-   // initialize robot container (contains motion profiling command)
-   m_robotContainer = new RobotContainer();
+    super.robotInit();
+
+    // initialize robot container (contains motion profiling command)
+    m_robotContainer = new RobotContainer();
 
   }
 
-
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
   /**
-   * This function is called every robot packet, no matter the mode. Use this for items like
-   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+   * This function is called every robot packet, no matter the mode. Use this for
+   * items like
+   * diagnostics that you want ran during disabled, autonomous, teleoperated and
+   * test.
    *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+   * <p>
+   * This runs after the mode specific periodic functions, but before LiveWindow
+   * and
    * SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // Runs the Scheduler. This is responsible for polling buttons, adding
+    // newly-scheduled
+    // commands, running already-scheduled commands, removing finished or
+    // interrupted commands,
+    // and running subsystem periodic() methods. This must be called from the
+    // robot's periodic
     // block in order for anything in the Command-based framework to work.
 
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("Right Encoder", Chassis.getInstance().getRightEncoder().getDistance());
+    SmartDashboard.putNumber("Left Encoder", Chassis.getInstance().getLeftEncoder().getDistance());
+    if (isEnabled()) {
+      String s = "";
+      long passedTime = (System.currentTimeMillis() - startTime);
+      int minuteLeft = 2 - ((int) (passedTime / 1000L) / 60);
+      int secondsLeft = (int) (passedTime / 1000L) > 30 ? 60 - (int) (passedTime / 1000L) % 60
+          : 30 - (int) (passedTime / 1000L) % 60;
+      s = minuteLeft + ":" + secondsLeft;
+      SmartDashboard.putString("timeLeft", s);
+    }
+    SmartDashboard.putBoolean("Is Up", Climber.getInstance().isUp());
+    SmartDashboard.putBoolean("Is Climber Down", Collector.getInstance().isDown());
 
   }
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
-  //-------------------------------------------------------------------------------------------------------------\\
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+  // -------------------------------------------------------------------------------------------------------------\\
+  /**
+   * This autonomous runs the autonomous command selected by your
+   * {@link RobotContainer} class.
+   */
   @Override
   public void autonomousInit() {
-
+    startTime = System.currentTimeMillis();
     Chassis.getInstance().getGyro().reset();
-    
+
     m_autonomousCommand = m_robotContainer.getAutonomousComand();
 
-    if (m_autonomousCommand != null) 
+    if (m_autonomousCommand != null)
       m_autonomousCommand.schedule();
 
   }
 
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
 
     SmartDashboard.putNumber("Gyro Value", Chassis.getInstance().getGyro().getAngle());
-    
+
     // SmartDashboard.putBoolean("SwitchDown", Collector.getInstance().isDown());
 
   }
 
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
   @Override
   public void teleopInit() {
 
@@ -123,7 +154,7 @@ public class Robot extends TimedRobot {
 
   }
 
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
 
   /** This function is called periodically during operator control. */
   @Override
@@ -131,20 +162,19 @@ public class Robot extends TimedRobot {
 
     // tank move according to joysticks
     Controls.movePeriodic();
-    
-    SmartDashboard.putBoolean("SwitchUp", Climber.getInstance().isUp());
+
   }
 
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
   @Override
   public void testInit() {
-    
+
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
 
   }
 
-  //-------------------------------------------------------------------------------------------------------------\\
+  // -------------------------------------------------------------------------------------------------------------\\
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
