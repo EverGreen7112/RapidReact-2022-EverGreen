@@ -67,8 +67,8 @@ public final class Constants {
     public interface Speeds {
         public static final double
             motorSpeed = 0.6,
-
-            collectorOpen = 0.8,
+			collectorClose = -0.8,
+            collectorOpen = 0.3,
             collectorCollect = 0.7,
             
             climberMotor = 0.8,
