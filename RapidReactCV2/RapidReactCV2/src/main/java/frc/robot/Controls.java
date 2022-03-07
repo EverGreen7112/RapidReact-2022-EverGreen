@@ -1,6 +1,9 @@
 package frc.robot;
 
+import java.util.Set;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
@@ -9,7 +12,7 @@ public class Controls {
 
 
   private static Joystick m_rightJoystick, m_leftJoystick, m_operator; 
-
+	private static JoystickButton m_cancelAll;
   private static JoystickButton m_collectorCollect, m_collectorUncollect, m_collectorOpen, m_collectorClose, m_climberDown, m_climberUp, m_storageUp, m_storageDown;
     
 
@@ -19,7 +22,7 @@ public class Controls {
     m_rightJoystick = new Joystick(Constants.JoystickPorts.rightJoystick);
     m_leftJoystick = new Joystick(Constants.JoystickPorts.leftJoystick);
     m_operator = new Joystick(Constants.JoystickPorts.operator);
-
+	m_cancelAll =   new JoystickButton(m_rightJoystick,5);
     // initialize buttons for specific commands later on
     m_collectorOpen = new JoystickButton(m_operator, Constants.ButtonPorts.collectorOpen);
     m_collectorClose = new JoystickButton(m_operator, Constants.ButtonPorts.collectorClose);
@@ -49,7 +52,24 @@ public class Controls {
   private static void initCommands() {
 
     // make each button do what it was defined for
-
+	final Command cancelAll = new Command(){
+		
+		@Override
+		public boolean isFinished() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public void initialize(){
+			CommandScheduler.getInstance().cancelAll();
+		}
+		@Override
+		public Set<Subsystem> getRequirements() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	};
+	m_cancelAll.whenHeld(cancelAll);
     CollectorOpen collectorOpen = new CollectorOpen();
     m_collectorOpen.whileHeld(collectorOpen);
 

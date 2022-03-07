@@ -28,64 +28,65 @@ import frc.robot.subsystems.Storage;
  */
 public class RobotContainer {
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
-  }
+	/**
+	 * The container for the robot. Contains subsystems, OI devices, and commands.
+	 */
+	public RobotContainer() {
+		// Configure the button bindings
+		configureButtonBindings();
+	}
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-   * it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {
-  }
+	/**
+	 * Use this method to define your button->command mappings. Buttons can be
+	 * created by
+	 * instantiating a {@link GenericHID} or one of its subclasses ({@link
+	 * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+	 * it to a {@link
+	 * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+	 */
+	private void configureButtonBindings() {
+	}
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousComand() {
+	/**
+	 * Use this to pass the autonomous command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in autonomous
+	 */
+	public Command getAutonomousComand() {
 
-    Trajectory trajectory = Robot.trajectory; // get motion profiling trajectory
+		Trajectory trajectory = Robot.trajectory; // get motion profiling trajectory
 
-    // move robot according to the trajectory (basically the motion profiling part)
-    RamseteCommand ramseteCommand = new RamseteCommand(
-        trajectory,
-        DriveTrain.getInstance()::getPose,
-        new RamseteController(Constants.DriveConstants.kRamseteB, Constants.DriveConstants.kRamseteZeta),
-        new SimpleMotorFeedforward(
-            Constants.DriveConstants.kS,
-            Constants.DriveConstants.kV,
-            Constants.DriveConstants.kA),
-        Constants.DriveConstants.kDriveKinematics,
-        DriveTrain.getInstance()::getWheelSpeeds,
-        new PIDController(Constants.DriveConstants.kP, 0, 0),
-        new PIDController(Constants.DriveConstants.kP, 0, 0),
-        DriveTrain.getInstance()::tankDriveVolts,
-        DriveTrain.getInstance());
+		// move robot according to the trajectory (basically the motion profiling part)
+		RamseteCommand ramseteCommand = new RamseteCommand(
+				trajectory,
+				DriveTrain.getInstance()::getPose,
+				new RamseteController(Constants.DriveConstants.kRamseteB, Constants.DriveConstants.kRamseteZeta),
+				new SimpleMotorFeedforward(
+						Constants.DriveConstants.kS,
+						Constants.DriveConstants.kV,
+						Constants.DriveConstants.kA),
+				Constants.DriveConstants.kDriveKinematics,
+				DriveTrain.getInstance()::getWheelSpeeds,
+				new PIDController(Constants.DriveConstants.kP, 0, 0),
+				new PIDController(Constants.DriveConstants.kP, 0, 0),
+				DriveTrain.getInstance()::tankDriveVolts,
+				DriveTrain.getInstance());
 
-    // reset robot's position in odometry in order to make sure movement is done
-    // correctly
-    // according to the trajectory
-    DriveTrain.getInstance().resetOdometry(trajectory.getInitialPose());
-    Command folowTraj = ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
-    Command folowAndcollect = new ParallelDeadlineGroup(folowTraj, new CollectorCollect());// chance for problem due
-    // Command allAuto = new SequentialCommandGroup(new CollectorOpen().withTimeout(0.5), folowAndcollect,
-    //     new StorageUp());
-    ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
-    Command allAuto = new SequentialCommandGroup(new StorageUp().withTimeout(5), folowTraj);
-    // return the ramsete command in order to cause the motion profiling
-    // then stop the robot's movements after finished (without it, it keeps going
-    // until it stops alone)
-    return allAuto;
-  }
+		// reset robot's position in odometry in order to make sure movement is done
+		// correctly
+		// according to the trajectory
+		DriveTrain.getInstance().resetOdometry(trajectory.getInitialPose());
+		Command folowTraj = ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
+		Command folowAndcollect = new ParallelDeadlineGroup(folowTraj, new CollectorCollect());// chance for problem due
+		// Command allAuto = new SequentialCommandGroup(new
+		// CollectorOpen().withTimeout(0.5), folowAndcollect,
+		// new StorageUp());
+		ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
+		SequentialCommandGroup allAuto = new SequentialCommandGroup(new StorageUp().withTimeout(5), folowTraj);
+		// return the ramsete command in order to cause the motion profiling
+		// then stop the robot's movements after finished (without it, it keeps going
+		// until it stops alone)
+		return allAuto.asProxy();
+	}
 
 }

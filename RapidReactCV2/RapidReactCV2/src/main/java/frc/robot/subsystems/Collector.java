@@ -9,59 +9,60 @@ import frc.robot.Constants;
 
 public class Collector extends SubsystemBase {
 
-    private static Collector m_collector = new Collector(); // collector's instance
-    
-    private WPI_VictorSPX m_collectorMotorOpen, m_collectorMotorCollect;
+	private static Collector m_collector = new Collector(); // collector's instance
 
-    private DigitalInput m_switchUp;//, m_switchDown;
-    
-    public Collector() {
+	private WPI_VictorSPX m_collectorMotorOpen, m_collectorMotorCollect;
 
-        // initialize open motor and turning ("Collect") motor, fix rotation for head side
-        m_collectorMotorOpen = new WPI_VictorSPX(Constants.MotorPorts.collectorOpen);
-        m_collectorMotorCollect = new WPI_VictorSPX(Constants.MotorPorts.collectorCollect);
+	private DigitalInput m_switchUp;// , m_switchDown;
 
-        m_collectorMotorOpen.setNeutralMode(NeutralMode.Brake);
-        
-        m_collectorMotorCollect.setInverted(true);
+	public Collector() {
 
-        // initialize microswitches for when to stop movement upwards and downwards
-        m_switchUp = new DigitalInput(Constants.DigitalPorts.switchUp);
-        // m_switchDown = new DigitalInput(Constants.DigitalPorts.switchDown);
-        
-    } 
+		// initialize open motor and turning ("Collect") motor, fix rotation for head
+		// side
+		m_collectorMotorOpen = new WPI_VictorSPX(Constants.MotorPorts.collectorOpen);
+		m_collectorMotorCollect = new WPI_VictorSPX(Constants.MotorPorts.collectorCollect);
 
-    public static Collector getInstance() {
-        return m_collector;
-    }
+		m_collectorMotorOpen.setNeutralMode(NeutralMode.Brake);
 
-    public boolean isUp() {
+		m_collectorMotorCollect.setInverted(true);
 
-        // was microswitch maximizing up movement pressed
-        return !m_switchUp.get();
+		// initialize microswitches for when to stop movement upwards and downwards
+		// m_switchUp = new DigitalInput(Constants.DigitalPorts.switchUp);
+		// m_switchDown = new DigitalInput(Constants.DigitalPorts.switchDown);
 
-    }
+	}
 
-    public boolean isDown() {
+	public static Collector getInstance() {
+		return m_collector;
+	}
 
-        // was microswitch maximizing down movement pressed
-        // return m_switchDown.get();
-        return false;
+	public boolean isUp() {
 
-    }
+		// was microswitch maximizing up movement pressed
+		return false;
 
-    public void open(double speed) {
+	}
 
-        // open / close (depends on speed > 0 or not) using the motor
-        m_collectorMotorOpen.set(speed);
+	public boolean isDown() {
 
-    }
+		// was microswitch maximizing down movement pressed
+		// return m_switchDown.get();
+		return false;
 
-    public void set(double speed) {
+	}
 
-        // make collector collection rode spin
-        m_collectorMotorCollect.set(speed);
+	public void open(double speed) {
 
-    }
+		// open / close (depends on speed > 0 or not) using the motor
+		m_collectorMotorOpen.set(speed);
+
+	}
+
+	public void set(double speed) {
+
+		// make collector collection rode spin
+		m_collectorMotorCollect.set(speed);
+
+	}
 
 }

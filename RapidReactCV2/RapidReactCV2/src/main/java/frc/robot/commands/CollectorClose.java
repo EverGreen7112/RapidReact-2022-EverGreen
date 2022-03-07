@@ -13,7 +13,7 @@ public class CollectorClose extends CommandBase {
 
 	@Override
 	public void execute() {
-		Collector.getInstance().open(Constants.Speeds.collectorClose); // move the other way (up)
+		Collector.getInstance().open(-1f);; // move the other way (up)
 	}
 
 	@Override
