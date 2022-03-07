@@ -51,8 +51,8 @@ public class Controls {
     // --OLD CODE END-- \\
 
     Chassis.getInstance().tankMove(
-      -m_leftJoystick.getY() * Constants.Speeds.motorSpeed + m_rightJoystick.getY() * 0.5 * Constants.Speeds.motorSpeed,
-      -m_rightJoystick.getY() * Constants.Speeds.motorSpeed + m_leftJoystick.getY() * 0.5 * Constants.Speeds.motorSpeed);
+      -m_leftJoystick.getY() * Constants.Speeds.motorSpeed - m_rightJoystick.getY() * Constants.Speeds.turnSoftener * Constants.Speeds.motorSpeed,
+      -m_rightJoystick.getY() * Constants.Speeds.motorSpeed -  m_leftJoystick.getY() * Constants.Speeds.turnSoftener * Constants.Speeds.motorSpeed);
 
   }
 
