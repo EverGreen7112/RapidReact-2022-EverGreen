@@ -25,6 +25,10 @@ public class Controls {
   private static Double lastJoystic = 0.0;
   private static Long lastTime;
   private static Double lastJoystic2 = 0.0;
+  private static double prevRspeed = 0;
+  private static double prevLspeed = 0;
+  
+    
 
   public static void init() {
 
@@ -98,9 +102,13 @@ public class Controls {
     // Chassis.getInstance().tankMove(
     //   -m_leftJoystick.getY() * Constants.Speeds.motorSpeed - m_rightJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed,
     //   -m_rightJoystick.getY() * Constants.Speeds.motorSpeed -  m_leftJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed);
-    Chassis.getInstance().tankMove(
-      -output * Constants.Speeds.motorSpeed - output * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed,
-      -output2 * Constants.Speeds.motorSpeed -  output2 * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed);
+    double Lspeed = -m_leftJoystick.getY() * Constants.Speeds.motorSpeed - (m_rightJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed - prevRspeed);
+    double Rspeed = -m_rightJoystick.getY() * Constants.Speeds.motorSpeed -  (m_leftJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed - prevLspeed);
+        Chassis.getInstance().tankMove(
+      Lspeed,
+      Rspeed);
+    prevLspeed = Lspeed;
+    prevRspeed = Rspeed;
   }
   
 
