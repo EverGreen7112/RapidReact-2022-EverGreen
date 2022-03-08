@@ -67,7 +67,8 @@ public final class Constants {
     public interface Speeds {
         public static final double
             //motorSpeed = 0.6, old speed, works, use if needed
-            motorSpeed = 0.45, // new speed designed to fit better with turn softening
+            motorSpeed = 0.6, // better motor speed
+            driveSoften = 0.1,
 			collectorClose = -0.8,
             collectorOpen = 0.3,
             collectorCollect = 0.6,
