@@ -14,6 +14,9 @@ public class Controls {
   private static Joystick m_rightJoystick, m_leftJoystick, m_operator; 
 	private static JoystickButton m_cancelAll;
   private static JoystickButton m_collectorCollect, m_collectorUncollect, m_collectorOpen, m_collectorClose, m_climberDown, m_climberUp, m_storageUp, m_storageDown;
+  private static double prevRspeed = 0;
+  private static double prevLspeed = 0;
+  
     
 
   public static void init() {
@@ -50,10 +53,13 @@ public class Controls {
     //   -m_rightJoystick.getY() * Constants.Speeds.motorSpeed);
     // --OLD CODE END-- \\
 
+    double Lspeed = -m_leftJoystick.getY() * Constants.Speeds.motorSpeed - (m_rightJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed - prevRspeed);
+    double Rspeed = -m_rightJoystick.getY() * Constants.Speeds.motorSpeed -  (m_leftJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed - prevLspeed);
     Chassis.getInstance().tankMove(
-      -m_leftJoystick.getY() * Constants.Speeds.motorSpeed - m_rightJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed,
-      -m_rightJoystick.getY() * Constants.Speeds.motorSpeed -  m_leftJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed);
-
+      Lspeed,
+      Rspeed);
+    prevLspeed = Lspeed;
+    prevRspeed = Rspeed;
   }
 
   private static void initCommands() {
