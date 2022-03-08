@@ -14,12 +14,9 @@ import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.CollectorCollect;
-import frc.robot.commands.CollectorOpen;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Collector;
@@ -131,18 +128,9 @@ public class Robot extends TimedRobot {
 		startTime = System.currentTimeMillis();
 		Storage.getInstance().set(0.9);
 		try {
+			Thread.sleep(8500);
+			Chassis.getInstance().tankMove(0.4, 0.4);
 			Thread.sleep(6000);
-			Storage.getInstance().set(0);
-			// CollectorOpen test = new CollectorOpen();
-			// test.schedule();
-			// Thread.sleep(1000);
-			
-			
-			// collectCommand.schedule();
-			// Chassis.getInstance().tankMove(0.4, 0.4);
-			// Thread.sleep(3000);
-			// Chassis.getInstance().tankMove(0,0);
-			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

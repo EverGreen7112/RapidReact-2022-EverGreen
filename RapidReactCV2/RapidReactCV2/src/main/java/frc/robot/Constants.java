@@ -71,7 +71,7 @@ public final class Constants {
             driveSoften = 0.1,
 			collectorClose = -0.8,
             collectorOpen = 0.3,
-            collectorCollect = 0.6,
+            collectorCollect = 0.7,
             
             climberMotor = 0.8,
             
