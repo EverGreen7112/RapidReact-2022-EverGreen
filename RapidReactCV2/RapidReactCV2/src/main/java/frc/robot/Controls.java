@@ -1,12 +1,17 @@
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Set;
 
+import edu.wpi.first.math.Pair;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
+
 
 public class Controls {
 
@@ -14,7 +19,12 @@ public class Controls {
   private static Joystick m_rightJoystick, m_leftJoystick, m_operator; 
 	private static JoystickButton m_cancelAll;
   private static JoystickButton m_collectorCollect, m_collectorUncollect, m_collectorOpen, m_collectorClose, m_climberDown, m_climberUp, m_storageUp, m_storageDown;
-    
+  private static LinkedList<MyPair<Long,Double>> integralCalculator = new LinkedList<>();
+  private static LinkedList<MyPair<Long,Double>> integralCalculator2 = new LinkedList<>();
+  private static Double integralDuration = 0.5;//in sec
+  private static Double lastJoystic = 0.0;
+  private static Long lastTime;
+  private static Double lastJoystic2 = 0.0;
 
   public static void init() {
 
@@ -22,7 +32,7 @@ public class Controls {
     m_rightJoystick = new Joystick(Constants.JoystickPorts.rightJoystick);
     m_leftJoystick = new Joystick(Constants.JoystickPorts.leftJoystick);
     m_operator = new Joystick(Constants.JoystickPorts.operator);
-	m_cancelAll =   new JoystickButton(m_rightJoystick,5);
+	  m_cancelAll =   new JoystickButton(m_rightJoystick,5);
     // initialize buttons for specific commands later on
     m_collectorOpen = new JoystickButton(m_operator, Constants.ButtonPorts.collectorOpen);
     m_collectorClose = new JoystickButton(m_operator, Constants.ButtonPorts.collectorClose);
@@ -34,7 +44,11 @@ public class Controls {
 
     m_storageUp = new JoystickButton(m_operator, Constants.ButtonPorts.storageUp);
     m_storageDown = new JoystickButton(m_operator, Constants.ButtonPorts.storageDown);
-    
+    lastTime = System.currentTimeMillis();
+    MyPair<Long,Double> a = new MyPair<>(lastTime, 0.0);
+    integralCalculator.add(a);
+    MyPair<Long,Double> a2 = new MyPair<>(lastTime, 0.0);
+    integralCalculator2.add(a2);
     // initialize commands on buttons
     initCommands();
 
@@ -49,12 +63,46 @@ public class Controls {
     //   -m_leftJoystick.getY() * Constants.Speeds.motorSpeed,
     //   -m_rightJoystick.getY() * Constants.Speeds.motorSpeed);
     // --OLD CODE END-- \\
+   
+    //right
+    Long curTime = System.currentTimeMillis();
+    double curJoystick = m_rightJoystick.getY();
+    double integral = integralCalculator.get(integralCalculator.size() -1).b + (curTime -lastTime)*(curJoystick+lastJoystic)/2;//trapozied area 
+    integralCalculator.add(new MyPair<Long,Double>(curTime, integral));
+    MyPair<Long,Double> first = integralCalculator.getFirst();
+    while(curTime - first.a > integralDuration*1000){
+      integralCalculator.remove();
+      first = integralCalculator.getFirst();
+    }
+    double output = (integral-first.b)/(curTime-first.a);
+    SmartDashboard.putNumber("RIntegral Output", output);
+    SmartDashboard.putNumber("RIntegral Output", output);
+    SmartDashboard.putNumber("RJoyStickY", curJoystick);
 
+    lastTime = curTime;
+    lastJoystic = curJoystick;
+
+    //left
+    double curJoystick2 = m_leftJoystick.getY();
+    double integral2 = integralCalculator2.get(integralCalculator2.size() -1).b + (curTime -lastTime)*(curJoystick2+lastJoystic2)/2;//trapozied area 
+    integralCalculator2.add(new MyPair<Long,Double>(curTime, integral2));
+    MyPair<Long,Double> first2 = integralCalculator2.getFirst();
+    while(curTime - first2.a > integralDuration*1000){
+      integralCalculator2.remove();
+      first2 = integralCalculator2.getFirst();
+    }
+    double output2 = (integral2-first2.b)/(curTime-first2.a);
+    SmartDashboard.putNumber("LIntegral Output", output2);
+    SmartDashboard.putNumber("LJoyStickY", curJoystick2);
+    lastJoystic2 = curJoystick2;
+    // Chassis.getInstance().tankMove(
+    //   -m_leftJoystick.getY() * Constants.Speeds.motorSpeed - m_rightJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed,
+    //   -m_rightJoystick.getY() * Constants.Speeds.motorSpeed -  m_leftJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed);
     Chassis.getInstance().tankMove(
-      -m_leftJoystick.getY() * Constants.Speeds.motorSpeed - m_rightJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed,
-      -m_rightJoystick.getY() * Constants.Speeds.motorSpeed -  m_leftJoystick.getY() * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed);
-
+      -output * Constants.Speeds.motorSpeed - output * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed,
+      -output2 * Constants.Speeds.motorSpeed -  output2 * Constants.Speeds.driveSoften * Constants.Speeds.motorSpeed);
   }
+  
 
   private static void initCommands() {
 
