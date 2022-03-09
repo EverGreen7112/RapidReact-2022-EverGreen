@@ -77,12 +77,13 @@ public class RobotContainer {
 		// according to the trajectory
 		DriveTrain.getInstance().resetOdometry(trajectory.getInitialPose());
 		Command folowTraj = ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
+		//Command folowTraj2 = ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0)).asProxy();
 		Command folowAndcollect = new ParallelDeadlineGroup(folowTraj, new CollectorCollect());// chance for problem due
 		// Command allAuto = new SequentialCommandGroup(new
 		// CollectorOpen().withTimeout(0.5), folowAndcollect,
 		// new StorageUp());
 		ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
-		SequentialCommandGroup allAuto = new SequentialCommandGroup(new StorageUp().withTimeout(5), folowTraj);
+		SequentialCommandGroup allAuto = new SequentialCommandGroup(new StorageUp().withTimeout(5), folowAndcollect);
 		// return the ramsete command in order to cause the motion profiling
 		// then stop the robot's movements after finished (without it, it keeps going
 		// until it stops alone)
