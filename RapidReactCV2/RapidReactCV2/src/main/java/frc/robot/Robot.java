@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.Timer;
+import java.util.logging.Handler;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
@@ -17,6 +18,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.commands.CollectorCollect;
+import frc.robot.commands.CollectorOpen;
+import frc.robot.commands.StorageUp;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Collector;
@@ -125,15 +130,24 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+
 		startTime = System.currentTimeMillis();
-		Storage.getInstance().set(0.9);
 		try {
-			Thread.sleep(8500);
-			Chassis.getInstance().tankMove(0.4, 0.4);
-			Thread.sleep(6000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			m_autonomousCommand = m_robotContainer.getAutonomousComand();
+			m_autonomousCommand.schedule();
+			
+		} catch (Exception n) {
+
+			Command storage = new StorageUp().withTimeout(5);
+			storage.schedule();
+			try {
+				Chassis.getInstance().tankMove(0.4, 0.4);
+				Thread.sleep(3000);
+				Chassis.getInstance().tankMove(0,0);
+			} catch (Exception e) {
+				//TODO: handle exception
+				e.printStackTrace();
+			}
 		}
 		
 		
