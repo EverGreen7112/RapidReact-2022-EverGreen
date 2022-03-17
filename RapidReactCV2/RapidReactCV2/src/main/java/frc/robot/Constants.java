@@ -18,12 +18,14 @@ public final class Constants {
             chassisLeftMiddle = 6,
             chassisLeftBack = 2,
 
-            collectorOpen = 1,
+            FLY_WHEEL = 1,
             collectorCollect = 5,
 
             storage = 4,
             
-            climber = 0;
+            climber = 0,
+            CLIMBER_THIRD = 8;
+            
     }
     
     public interface DigitalPorts {
@@ -55,7 +57,9 @@ public final class Constants {
             climberUp = 7,
             
             storageUp = 8,
-            storageDown = 6;
+            storageDown = 6,
+
+            SHOOT = 0;
     }
 
     public interface CameraPorts {
@@ -68,7 +72,7 @@ public final class Constants {
         public static final double
             //motorSpeed = 0.6, old speed, works, use if needed
             motorSpeed = 0.6, // better motor speed
-            driveSoften = 0.1,
+            driveSoften = 0.7,
 			collectorClose = -0.8,
             collectorOpen = 0.3,
             collectorCollect = 0.6,

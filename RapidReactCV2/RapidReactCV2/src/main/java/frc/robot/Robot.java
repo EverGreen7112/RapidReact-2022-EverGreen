@@ -41,8 +41,12 @@ public class Robot extends TimedRobot {
 	private Command m_autonomousCommand;
 	private RobotContainer m_robotContainer;
 	private long startTime = System.currentTimeMillis();
-	private String trajectoryJSON = "Unnamed_1.wpilib.json"; // path for trajectory
+	private String trajectoryJSON = "Unnamed.wpilib.json"; // path for trajectory
+	private String trajectoryJSON2 = "Unnamed_0.wpilib.json"; // path for trajectory
+	private String trajectoryJSON3 = "Unnamed_1.wpilib.json"; // path for trajectory
 	public static Trajectory trajectory = new Trajectory(); // create new Trajectory
+	public static Trajectory trajectory2 = new Trajectory(); // create new Trajectory
+	public static Trajectory trajectory3 = new Trajectory(); // create new Trajectory
 
 	// -------------------------------------------------------------------------------------------------------------\\
 	/**
@@ -61,6 +65,26 @@ public class Robot extends TimedRobot {
 
 		} catch (IOException ex) {
 			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+		}
+
+		try {
+			// get movement path from json
+			Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON2);
+			if (trajectoryPath != null) // turn movement path into trajectory
+				trajectory2 = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+
+		} catch (IOException ex) {
+			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON2, ex.getStackTrace());
+		}
+
+		try {
+			// get movement path from json
+			Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON3);
+			if (trajectoryPath != null) // turn movement path into trajectory
+				trajectory3 = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+
+		} catch (IOException ex) {
+			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON3, ex.getStackTrace());
 		}
 
 		// reset gyro's rotation value
@@ -194,6 +218,7 @@ public class Robot extends TimedRobot {
 
 		// tank move according to joysticks
 		Controls.movePeriodic();
+		Controls.climbToThird();
 
 	}
 

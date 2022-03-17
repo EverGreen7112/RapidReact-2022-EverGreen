@@ -2,6 +2,8 @@ package frc.robot;
 
 import java.util.Set;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -107,4 +109,13 @@ public class Controls {
     StorageDown storageD = new StorageDown();
     m_storageDown.whileHeld(storageD);
   }
+
+  public static void climbToThird(){
+    WPI_VictorSPX climberThird = new WPI_VictorSPX(Constants.MotorPorts.CLIMBER_THIRD);
+    climberThird.set(m_operator.getY() * Constants.Speeds.climberMotor);
+  }
+
+
+
+  
 }

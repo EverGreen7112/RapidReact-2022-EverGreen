@@ -55,6 +55,8 @@ public class RobotContainer {
 	public Command getAutonomousComand() {
 
 		Trajectory trajectory = Robot.trajectory; // get motion profiling trajectory
+		Trajectory trajectory2 = Robot.trajectory2; // canal
+		Trajectory trajectory3 = Robot.trajectory3; // canal again
 
 		// move robot according to the trajectory (basically the motion profiling part)
 		RamseteCommand ramseteCommand = new RamseteCommand(
@@ -87,7 +89,8 @@ public class RobotContainer {
 		// return the ramsete command in order to cause the motion profiling
 		// then stop the robot's movements after finished (without it, it keeps going
 		// until it stops alone)
-		return allAuto.asProxy();
+		return folowTraj;
+		//return allAuto.asProxy();
 	}
 
 }
