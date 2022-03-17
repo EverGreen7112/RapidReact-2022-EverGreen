@@ -71,7 +71,7 @@ public final class Constants {
             collectorOpen = 0.3,
             collectorCollect = 0.55,
             
-            climberMotor = 0.8,
+            climberMotor = 1,
             
             storageMotor = 1;
     }
