@@ -7,21 +7,27 @@ package frc.robot;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Date;
+import java.util.Set;
 import java.util.Timer;
-import java.util.logging.Handler;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CollectorCollect;
 import frc.robot.commands.CollectorOpen;
-import frc.robot.commands.StorageUp;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Collector;
@@ -62,6 +68,7 @@ public class Robot extends TimedRobot {
 		} catch (IOException ex) {
 			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
 		}
+		SmartDashboard.putString("timeLeft", "0:0");
 
 		// reset gyro's rotation value
 		Chassis.getInstance().getGyro().reset();
@@ -94,7 +101,6 @@ public class Robot extends TimedRobot {
 		// and running subsystem periodic() methods. This must be called from the
 		// robot's periodic
 		// block in order for anything in the Command-based framework to work.
-
 		CommandScheduler.getInstance().run();
 		SmartDashboard.putNumber("Right Encoder", Chassis.getInstance().getRightEncoder().getDistance());
 		SmartDashboard.putNumber("Left Encoder", Chassis.getInstance().getLeftEncoder().getDistance());
@@ -130,24 +136,25 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-
 		startTime = System.currentTimeMillis();
+		
 		try {
-			m_autonomousCommand = m_robotContainer.getAutonomousComand();
-			m_autonomousCommand.schedule();
+			Chassis.getInstance().tankMove(0.4, 0.4);
+			Thread.sleep(2000);
+			Chassis.getInstance().tankMove(0,0);
+			Storage.getInstance().set(1);
+			Thread.sleep(6000);
+			Storage.getInstance().set(0);
+			// CollectorOpen test = new CollectorOpen();
+			// test.schedule();
+			// Thread.sleep(1000);
 			
-		} catch (Exception n) {
-
-			Command storage = new StorageUp().withTimeout(5);
-			storage.schedule();
-			try {
-				Chassis.getInstance().tankMove(0.4, 0.4);
-				Thread.sleep(3000);
-				Chassis.getInstance().tankMove(0,0);
-			} catch (Exception e) {
-				//TODO: handle exception
-				e.printStackTrace();
-			}
+			
+			// collectCommand.schedule();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
@@ -162,24 +169,79 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Gyro Value", Chassis.getInstance().getGyro().getAngle());
 
 		// SmartDashboard.putBoolean("SwitchDown", Collector.getInstance().isDown());
-
+		
 	}
+	WPI_VictorSPX arm = new WPI_VictorSPX(8);
 
+	JoystickButton armbtn = new JoystickButton(new Joystick(1), 1);
+	JoystickButton armdownbtn = new JoystickButton(new Joystick(1), 2);
+	final Command armCommand = new CommandBase(){
+		
+		@Override
+		public boolean isFinished() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public void initialize(){
+			
+		}
+		@Override
+		public void execute() {
+			arm.set(0.45);
+		}
+		@Override
+		public void end(boolean interrupted) {
+			arm.set(0);
+		}
+		// @Override
+		// public Set<Subsystem> getRequirements() {
+		// 	// TODO Auto-generated method stub
+		// 	return null;
+		// }
+		
+	}	;// -------------------------------------------------------------------------------------------------------------\\
 	// -------------------------------------------------------------------------------------------------------------\\
+	final Command armdownCommand = new CommandBase(){
+		
+		@Override
+		public boolean isFinished() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public void initialize(){
+			
+		}
+		@Override
+		public void execute() {
+			arm.set(-0.45);
+		}
+		@Override
+		public void end(boolean interrupted) {
+			arm.set(0);
+		}
+		// @Override
+		// public Set<Subsystem> getRequirements() {
+		// 	// TODO Auto-generated method stub
+		// 	return null;
+		// }
+		
+	}	;//
 	@Override
 	public void teleopInit() {
 
 		// init joysticks and button function
 		Controls.init();
+		armbtn.whileHeld(armCommand);
+		armdownbtn.whileHeld(armdownCommand);
 
 	}
-
-	// -------------------------------------------------------------------------------------------------------------\\
+	
 
 	/** This function is called periodically during operator control. */
 	@Override
 	public void teleopPeriodic() {
-
 		// tank move according to joysticks
 		Controls.movePeriodic();
 

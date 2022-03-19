@@ -8,7 +8,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 public final class Constants {
 
-    public interface MotorPorts {
+    public static class MotorPorts {
         public static final int
             chassisRightFront = 7,
             chassisRightMiddle = 9,
@@ -26,7 +26,7 @@ public final class Constants {
             climber = 0;
     }
     
-    public interface DigitalPorts {
+    public static class DigitalPorts {
         public static final int
             // missing ports
             switchUp = 3,
@@ -35,7 +35,7 @@ public final class Constants {
             switchClimber = 2;
     }
     
-    public interface JoystickPorts {
+    public static class JoystickPorts {
         public static final int
             rightJoystick = 0,
             leftJoystick = 1,
@@ -43,7 +43,7 @@ public final class Constants {
     }  
     
     //Detail the Buttons of each Joystick
-    public interface ButtonPorts {
+    public static class ButtonPorts {
         public static final int
             // missing ports
             collectorOpen = 4,
@@ -58,32 +58,25 @@ public final class Constants {
             storageDown = 6;
     }
 
-    public interface CameraPorts {
+    public static class CameraPorts {
         public static int
             // missing ports
             camera = 0;
     }
 
-    public interface Speeds {
-        public static final double
-            //motorSpeed = 0.6, old speed, works, use if needed
-<<<<<<< HEAD
-            motorSpeed = 0.5, // new speed designed to fit better with turn softening
-            turnSoftener = 0.2,
-=======
-            motorSpeed = 0.6, // better motor speed
-            driveSoften = 0.0,
->>>>>>> main
+    public static class Speeds {
+        public static  double
+            motorSpeed = 0.6,
 			collectorClose = -0.8,
             collectorOpen = 0.3,
-            collectorCollect = 0.7,
+            collectorCollect = 0.55,
             
-            climberMotor = 0.8,
+            climberMotor = 1,
             
-            storageMotor = 0.9;
+            storageMotor = 1;
     }
 
-    public interface DriveConstants {
+    public static class DriveConstants {
         public static double
             kS = 1.1056,
             kV = 2.6472,
@@ -97,7 +90,7 @@ public final class Constants {
             new DifferentialDriveKinematics(kTrackWidth);
     }
 
-    public interface PID {
+    public static class PID {
         public static final double
 
         // can probably remove these later
@@ -120,7 +113,7 @@ public final class Constants {
         DISTANCE_TOLERANCE = 1;
     }
     
-    public interface EncoderPorts {
+    public static class EncoderPorts {
         public static final int
         ENCODER_RIGHT_ONE = 8,
         ENCODER_RIGHT_TWO = 9,
