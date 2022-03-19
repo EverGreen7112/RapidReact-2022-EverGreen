@@ -57,10 +57,9 @@ public final class Constants {
             climberDown = 5,
             climberUp = 7,
             
-            storageUp = 8,
-            storageDown = 6,
+            storageUp = 6,
 
-            SHOOT = 0;
+            SHOOT = 8;
     }
 
     public interface CameraPorts {
