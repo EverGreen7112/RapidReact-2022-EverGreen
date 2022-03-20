@@ -44,9 +44,11 @@ public class Robot extends TimedRobot {
 	private String trajectoryJSON = "Unnamed.wpilib.json"; // path for trajectory
 	private String trajectoryJSON2 = "Unnamed_0.wpilib.json"; // path for trajectory
 	private String trajectoryJSON3 = "Unnamed_1.wpilib.json"; // path for trajectory
+	private String trajectoryJSON4 = "Unnamed_2.wpilib.json"; // path for trajectory
 	public static Trajectory trajectory = new Trajectory(); // create new Trajectory
 	public static Trajectory trajectory2 = new Trajectory(); // create new Trajectory
 	public static Trajectory trajectory3 = new Trajectory(); // create new Trajectory
+	public static Trajectory trajectory4 = new Trajectory(); // create new Trajectory
 
 	// -------------------------------------------------------------------------------------------------------------\\
 	/**
@@ -86,6 +88,18 @@ public class Robot extends TimedRobot {
 		} catch (IOException ex) {
 			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON3, ex.getStackTrace());
 		}
+
+
+		try {
+			// get movement path from json
+			Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON4);
+			if (trajectoryPath != null) // turn movement path into trajectory
+				trajectory4 = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+
+		} catch (IOException ex) {
+			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON4, ex.getStackTrace());
+		}
+
 
 		// reset gyro's rotation value
 		Chassis.getInstance().getGyro().reset();
@@ -156,7 +170,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 
 		startTime = System.currentTimeMillis();
-		Storage.getInstance().set(0.9);
+		//Storage.getInstance().set(0.9);
 		try {
 			m_autonomousCommand = m_robotContainer.getAutonomousComand();
 			m_autonomousCommand.schedule();
@@ -174,16 +188,16 @@ public class Robot extends TimedRobot {
 			
 		} catch (Exception n) {
 
-			Command storage = new StorageUp().withTimeout(5);
-			storage.schedule();
-			try {
-				Chassis.getInstance().tankMove(0.4, 0.4);
-				Thread.sleep(3000);
-				Chassis.getInstance().tankMove(0,0);
-			} catch (Exception e) {
-				//TODO: handle exception
-				e.printStackTrace();
-			}
+			n.printStackTrace();
+			// Command storage = new StorageUp().withTimeout(5);
+			// storage.schedule();
+			// try {
+			// 	Chassis.getInstance().tankMove(0.4, 0.4);
+			// 	Thread.sleep(3000);
+			// 	Chassis.getInstance().tankMove(0,0);
+			// } catch (Exception e) {
+			// 	e.printStackTrace();
+			// }
 		}
 		
 		

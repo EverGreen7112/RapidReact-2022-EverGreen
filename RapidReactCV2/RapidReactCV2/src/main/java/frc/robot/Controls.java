@@ -40,7 +40,7 @@ public class Controls {
     m_climberUp = new JoystickButton(m_operator, Constants.ButtonPorts.climberUp);
 
     m_storageUp = new JoystickButton(m_operator, Constants.ButtonPorts.storageUp);
-    m_storageDown = new JoystickButton(m_operator, Constants.ButtonPorts.storageDown);
+   //m_storageDown = new JoystickButton(m_operator, Constants.ButtonPorts.storageDown);
     m_shoot = new JoystickButton(m_operator, Constants.ButtonPorts.SHOOT);
 
     // the ints represent the angle on the Dpad
@@ -79,7 +79,6 @@ public class Controls {
 		
 		@Override
 		public boolean isFinished() {
-			// TODO Auto-generated method stub
 			return false;
 		}
 		@Override
@@ -88,7 +87,7 @@ public class Controls {
 		}
 		@Override
 		public Set<Subsystem> getRequirements() {
-			// TODO Auto-generated method stub
+
 			return null;
 		}
 	};
@@ -128,6 +127,12 @@ public class Controls {
     WPI_VictorSPX shooter = new WPI_VictorSPX(Constants.MotorPorts.FLY_WHEEL);
     shooter.set((m_shoot.getAsBoolean() ? 1 : -0) * Constants.Speeds.storageMotor);
   }
+
+  public static void shoot(double speed){
+    WPI_VictorSPX shooter = new WPI_VictorSPX(Constants.MotorPorts.FLY_WHEEL);
+    shooter.set(speed);
+  }
+
 
 
 

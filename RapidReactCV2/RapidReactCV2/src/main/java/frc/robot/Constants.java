@@ -20,7 +20,7 @@ public final class Constants {
 
             FLY_WHEEL = 1,
             collectorCollect = 5,
-            collectorOpen = -1, // TODO: update to the actual value!!!!
+            collectorOpen = 3, 
 
             storage = 4,
             
