@@ -18,8 +18,10 @@ public final class Constants {
             chassisLeftMiddle = 6,
             chassisLeftBack = 2,
 
-            collectorOpen = 1,
+            FLY_WHEEL = 1,
+
             collectorCollect = 5,
+			collectorOpen = 3,
 
             storage = 4,
             
@@ -56,6 +58,8 @@ public final class Constants {
             
             storageUp = 8,
             storageDown = 6;
+
+			// Shooter;
     }
 
     public static class CameraPorts {
@@ -67,13 +71,15 @@ public final class Constants {
     public static class Speeds {
         public static  double
             motorSpeed = 0.6,
-			collectorClose = -0.8,
+			collectorClose = -0.4,
             collectorOpen = 0.3,
             collectorCollect = 0.55,
             
             climberMotor = 1,
             
-            storageMotor = 1;
+            storageMotor = 1,
+
+			SHOOT_SPEED = 0.5;
     }
 
     public static class DriveConstants {
