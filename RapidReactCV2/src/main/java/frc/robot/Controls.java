@@ -2,6 +2,8 @@ package frc.robot;
 
 import java.util.Set;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -13,7 +15,7 @@ public class Controls {
 
   private static Joystick m_rightJoystick, m_leftJoystick, m_operator; 
 	private static JoystickButton m_cancelAll;
-  private static JoystickButton m_collectorCollect, m_collectorUncollect, m_collectorOpen, m_collectorClose, m_climberDown, m_climberUp, m_storageUp, m_storageDown,m_turbu;
+  private static JoystickButton m_collectorCollect, m_collectorUncollect, m_collectorOpen, m_collectorClose, m_climberDown, m_climberUp, m_storageUp, m_storageDown, m_turbu, m_shoot;
     
 
   public static void init() {
@@ -36,6 +38,7 @@ public class Controls {
     m_storageDown = new JoystickButton(m_operator, Constants.ButtonPorts.storageDown);
     
 	m_turbu = new JoystickButton(m_rightJoystick, 1);
+	// m_shoot = new JoystickButton(m_operator, Constants.ButtonPorts.SHOOT); //TODO
     // initialize commands on buttons
     initCommands();
 
@@ -90,11 +93,43 @@ public class Controls {
     m_climberUp.whileHeld(climberU);
 
     StorageUp storageU = new StorageUp();
-    m_storageUp.whileHeld(storageU);
+	WPI_VictorSPX shooterMotor = new WPI_VictorSPX(1);
+
+	final Command shootCommand = new CommandBase(){
+		
+		@Override
+		public boolean isFinished() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public void initialize(){
+			
+		}
+		@Override
+		public void execute() {
+			shooterMotor.set(-1);
+		}
+		@Override
+		public void end(boolean interrupted) {
+			shooterMotor.set(0);
+		}
+		// @Override
+		// public Set<Subsystem> getRequirements() {
+		// 	// TODO Auto-generated method stub
+		// 	return null;
+		// }
+		
+	}	;
+    m_storageUp.whileHeld(shootCommand);
     
-    StorageDown storageD = new StorageDown();
-    m_storageDown.whileHeld(storageD);
+    m_storageDown.whileHeld(storageU);
 	Turbu turbu = new Turbu();
 	m_turbu.whenHeld(turbu);
+  }
+
+  public static void shoot() {
+	  WPI_VictorSPX flyWheel = new WPI_VictorSPX(Constants.MotorPorts.FLY_WHEEL);
+	  flyWheel.set((m_shoot.getAsBoolean() ? 1 : 0) * Constants.Speeds.SHOOT_SPEED);
   }
 }

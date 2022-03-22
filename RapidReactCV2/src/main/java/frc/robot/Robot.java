@@ -174,8 +174,9 @@ public class Robot extends TimedRobot {
 	WPI_VictorSPX arm = new WPI_VictorSPX(8);
 
 	JoystickButton armbtn = new JoystickButton(new Joystick(1), 1);
-	JoystickButton armdownbtn = new JoystickButton(new Joystick(1), 2);
-	final Command armCommand = new CommandBase(){
+	JoystickButton armLockButton = new JoystickButton(new Joystick(1), 2);
+	JoystickButton armDownButton = new JoystickButton(new Joystick(1), 3);
+	final Command armUpCommand = new CommandBase(){
 		
 		@Override
 		public boolean isFinished() {
@@ -188,21 +189,16 @@ public class Robot extends TimedRobot {
 		}
 		@Override
 		public void execute() {
-			arm.set(0.45);
+			arm.set(0.2);
 		}
 		@Override
 		public void end(boolean interrupted) {
 			arm.set(0);
 		}
-		// @Override
-		// public Set<Subsystem> getRequirements() {
-		// 	// TODO Auto-generated method stub
-		// 	return null;
-		// }
 		
 	}	;// -------------------------------------------------------------------------------------------------------------\\
 	// -------------------------------------------------------------------------------------------------------------\\
-	final Command armdownCommand = new CommandBase(){
+	final Command armDownCommand = new CommandBase(){
 		
 		@Override
 		public boolean isFinished() {
@@ -215,26 +211,45 @@ public class Robot extends TimedRobot {
 		}
 		@Override
 		public void execute() {
-			arm.set(-0.45);
+			arm.set(-0.2);
 		}
 		@Override
 		public void end(boolean interrupted) {
 			arm.set(0);
 		}
-		// @Override
-		// public Set<Subsystem> getRequirements() {
-		// 	// TODO Auto-generated method stub
-		// 	return null;
-		// }
+		
+	}	;
+	final Command armLockCommand = new CommandBase(){
+		
+		@Override
+		public boolean isFinished() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public void initialize(){
+			
+		}
+		@Override
+		public void execute() {
+			arm.set(1);
+		}
+		@Override
+		public void end(boolean interrupted) {
+			arm.set(0);
+		}
+		
 		
 	}	;//
+	
 	@Override
 	public void teleopInit() {
 
 		// init joysticks and button function
 		Controls.init();
-		armbtn.whileHeld(armCommand);
-		armdownbtn.whileHeld(armdownCommand);
+		armbtn.whileHeld(armUpCommand);
+		armLockButton.whileHeld(armLockCommand);
+		armDownButton.whileHeld(armDownCommand);
 
 	}
 	
