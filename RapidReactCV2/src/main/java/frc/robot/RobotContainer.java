@@ -5,6 +5,7 @@ import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.MotorSafety;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -54,9 +55,11 @@ public class RobotContainer {
 	 */
 	public Command getAutonomousComand() {
 
+		
 		Trajectory trajectory = Robot.trajectory; // get motion profiling trajectory
 
 		// move robot according to the trajectory (basically the motion profiling part)
+		DriveTrain.getInstance().setMaxOutput(0.2);
 		RamseteCommand ramseteCommand = new RamseteCommand(
 				trajectory,
 				DriveTrain.getInstance()::getPose,
@@ -77,11 +80,13 @@ public class RobotContainer {
 		// according to the trajectory
 		DriveTrain.getInstance().resetOdometry(trajectory.getInitialPose());
 		Command folowTraj = ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
-		Command folowAndcollect = new ParallelDeadlineGroup(folowTraj, new CollectorCollect());// chance for problem due
+
+		
+		//Command folowAndcollect = new ParallelDeadlineGroup(folowTraj, new CollectorCollect());// chance for problem due
 		// Command allAuto = new SequentialCommandGroup(new
 		// CollectorOpen().withTimeout(0.5), folowAndcollect,
 		// new StorageUp());
-		ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
+		// ramseteCommand.andThen(() -> DriveTrain.getInstance().tankDriveVolts(0, 0));
 		SequentialCommandGroup allAuto = new SequentialCommandGroup(new StorageUp().withTimeout(5), folowTraj);
 		// return the ramsete command in order to cause the motion profiling
 		// then stop the robot's movements after finished (without it, it keeps going

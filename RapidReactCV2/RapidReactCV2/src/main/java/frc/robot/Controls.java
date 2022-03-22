@@ -67,13 +67,6 @@ public class Controls {
     //   -m_leftJoystick.getY() * Constants.Speeds.motorSpeed,
     //   -m_rightJoystick.getY() * Constants.Speeds.motorSpeed);
     // --OLD CODE END-- \\
-<<<<<<< HEAD
-
-    Chassis.getInstance().tankMove(
-      -m_leftJoystick.getY() * Constants.Speeds.motorSpeed - m_rightJoystick.getY() * Constants.Speeds.turnSoftener * Constants.Speeds.motorSpeed,
-      -m_rightJoystick.getY() * Constants.Speeds.motorSpeed -  m_leftJoystick.getY() * Constants.Speeds.turnSoftener * Constants.Speeds.motorSpeed);
-
-=======
    
     //right
     Long curTime = System.currentTimeMillis();
@@ -116,7 +109,6 @@ public class Controls {
       Rspeed);
     prevLspeed = Lspeed;
     prevRspeed = Rspeed;
->>>>>>> main
   }
   
 

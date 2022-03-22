@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.MotorSafety;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,18 +13,22 @@ public class DriveTrain extends SubsystemBase {
 
     private static final DriveTrain m_driveTrain = new DriveTrain(); // drivetrain's instance
 
-    private final DifferentialDrive m_drive;
+   // private final DifferentialDrive m_drive;
 
     private final DifferentialDriveOdometry m_odometry;
     
     private final Field2d m_field;
 
+    private double m_leftSpeed = 0;
+    private double m_rightSpeed = 0;
+    private double m_maxOutput = 1;
+
     public DriveTrain(){
 
         // initialize tank move mechanism for automatic movement
-        m_drive = new DifferentialDrive(
-            Chassis.getInstance().getLeftMotors(),
-            Chassis.getInstance().getRightMotors());
+        // m_drive = new DifferentialDrive(
+        //     Chassis.getInstance().getLeftMotors(),
+        //     Chassis.getInstance().getRightMotors());
 
         // reset encoders' values
         resetEncoders();
@@ -57,8 +62,10 @@ public class DriveTrain extends SubsystemBase {
             Chassis.getInstance().getGyro().getRotation2d(),
             Chassis.getInstance().getLeftEncoder().getDistance(),
             Chassis.getInstance().getRightEncoder().getDistance());
-        
+        //m_drive.check();
         m_field.setRobotPose(m_odometry.getPoseMeters());
+        //m_drive.tankDrive(m_leftSpeed, m_rightSpeed);
+
     }
 
     public Pose2d getPose(){
@@ -88,12 +95,15 @@ public class DriveTrain extends SubsystemBase {
     public void tankDriveVolts(double leftVolts, double rightVolts){
 
         // tank drive using specific voltage amounts per side of motors
-        Chassis.getInstance().getLeftMotors().setVoltage(leftVolts);
-        Chassis.getInstance().getRightMotors().setVoltage(rightVolts);
-
+        //m_drive.tankDrive(leftVolts, rightVolts);
+        Chassis.getInstance().tankMove(Math.max(leftVolts, m_maxOutput), Math.max(rightVolts, m_maxOutput));
+        m_leftSpeed  = leftVolts;
+        m_rightSpeed = rightVolts;
+        //m_drive.setSafetyEnabled(false);
         // reset timeout clock for movement
-        m_drive.feed();
-        
+        // m_drive.feed();
+        // m_drive.check();
+    
     }
 
     public double getAverageEncoderDistance(){
@@ -106,7 +116,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void setMaxOutput(double maxOutput){
-        m_drive.setMaxOutput(maxOutput);
+        m_maxOutput = maxOutput;
     }
 
     public void zeroHeading(){
