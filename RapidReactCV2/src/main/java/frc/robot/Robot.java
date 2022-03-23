@@ -138,24 +138,26 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		startTime = System.currentTimeMillis();
 		
-		try {
-			Chassis.getInstance().tankMove(0.4, 0.4);
-			Thread.sleep(2000);
-			Chassis.getInstance().tankMove(0,0);
-			Storage.getInstance().set(1);
-			Thread.sleep(6000);
-			Storage.getInstance().set(0);
-			// CollectorOpen test = new CollectorOpen();
-			// test.schedule();
-			// Thread.sleep(1000);
+		m_autonomousCommand = m_robotContainer.getAutonomousComand();
+		m_autonomousCommand.schedule();
+		// try {
+		// 	Chassis.getInstance().tankMove(0.4, 0.4);
+		// 	Thread.sleep(2000);
+		// 	Chassis.getInstance().tankMove(0,0);
+		// 	Storage.getInstance().set(1);
+		// 	Thread.sleep(6000);
+		// 	Storage.getInstance().set(0);
+		// 	// CollectorOpen test = new CollectorOpen();
+		// 	// test.schedule();
+		// 	// Thread.sleep(1000);
 			
 			
-			// collectCommand.schedule();
+		// 	// collectCommand.schedule();
 			
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// } catch (InterruptedException e) {
+		// 	// TODO Auto-generated catch block
+		// 	e.printStackTrace();
+		// }
 		
 		
 
