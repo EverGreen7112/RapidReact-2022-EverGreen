@@ -71,8 +71,8 @@ public final class Constants {
     public static class Speeds {
         public static  double
             motorSpeed = 0.6,
-			collectorClose = -0.4,
-            collectorOpen = 0.3,
+			collectorClose = -0.05,
+            collectorOpen = 0.1,
             collectorCollect = 0.55,
             
             climberMotor = 1,
